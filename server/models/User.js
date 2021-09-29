@@ -29,6 +29,12 @@ const userSchema = mongoose.Schema({
   tokenExp: {
     type: Number,
   },
+  subjects: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Subject",
+    },
+  ],
 });
 
 userSchema.pre("save", function (next) {
@@ -66,14 +72,21 @@ userSchema.methods.generateToken = function (cb) {
   });
 };
 
-userSchema.statics.findByToken = function (token, cb) {
+userSchema.statics.findByToken = async function (token) {
   let user = this;
-  jwt.verify(token, "secretToken", function (err, decoded) {
-    user.findOne({ _id: decoded, token: token }, function (err, user) {
-      if (err) return cb(err);
-      cb(null, user);
+  let found = null;
+  try {
+    await jwt.verify(token, "secretToken", async function (err, decoded) {
+      if (err) {
+        err;
+      }
+      found = await user.findOne({ _id: decoded, token: token });
     });
-  });
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+  return found;
 };
 
 const User = mongoose.model("User", userSchema);
