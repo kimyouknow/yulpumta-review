@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { auth } from "_actions/user_actions";
 
-export default function AuthHOC(SpecificComponent, option, adminRoute = null) {
+export default function AuthHOC(SpecificComponent, option) {
   function AuthenticationCheck(props) {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -14,8 +14,9 @@ export default function AuthHOC(SpecificComponent, option, adminRoute = null) {
             props.history.push("/login");
           }
         } else {
-          // 로그인 한 상태
-          props.history.push("/");
+          if (option === false) {
+            props.history.push("/");
+          }
         }
       });
     }, []);

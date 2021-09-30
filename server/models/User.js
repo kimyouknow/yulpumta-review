@@ -82,8 +82,9 @@ userSchema.statics.findByToken = async function (token) {
       }
       found = await user.findOne({ _id: decoded, token: token });
     });
+    // throw new Error("eee");
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return err;
   }
   return found;

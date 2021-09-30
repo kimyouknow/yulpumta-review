@@ -1,8 +1,15 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Nav from "Components/Nav";
 import Auth from "_hoc/auth";
 
+import Nav from "Components/nav";
+// import Home from "Pages/Home";
+// import Stat from "Pages/Stat";
+// import Planner from "Pages/Planner";
+// import Group from "Pages/Group";
+// import Rank from "Pages/Rank";
+// import Login from "Pages/Login";
+// import Register from "Pages/Register";
 const Home = lazy(() => import("Pages/Home"));
 const Stat = lazy(() => import("Pages/Stat"));
 const Planner = lazy(() => import("Pages/Planner"));

@@ -1,9 +1,14 @@
 import User from "../models/User";
 
 export const handleAuth = (req, res) => {
-  res.status(200).json({
-    name: req.user.name,
+  const {
+    user: { name },
+    token,
+  } = req;
+  return res.cookie("temp", "tmep").json({
+    name,
     isAuth: true,
+    token,
   });
 };
 
@@ -34,7 +39,6 @@ export const register = async (req, res) => {
         success: false,
         message: err,
       });
-    console.log(userInfo);
     return res.json({
       success: true,
     });
@@ -45,7 +49,6 @@ export const login = async (req, res) => {
   const {
     body: { email, password },
   } = req;
-  console.log(email, password);
   const user = await User.findOne({ email });
   if (!user)
     return res.json({
@@ -66,6 +69,7 @@ export const login = async (req, res) => {
         });
       res.cookie("user_auth", user.token).json({
         success: true,
+        name: user.name,
       });
     });
   });
