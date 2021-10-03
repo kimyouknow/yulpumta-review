@@ -3,12 +3,10 @@ import User from "../models/User";
 export const handleAuth = (req, res) => {
   const {
     user: { name },
-    token,
   } = req;
-  return res.cookie("temp", "tmep").json({
+  return res.json({
     name,
     isAuth: true,
-    token,
   });
 };
 
@@ -70,6 +68,7 @@ export const login = async (req, res) => {
       res.cookie("user_auth", user.token).json({
         success: true,
         name: user.name,
+        token: user.token,
       });
     });
   });

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { catchError } from "./global_actions";
 import { ADD_SUBEJCT, DEL_SUBEJCT, EDIT_SUBEJCT, GET_SUBJECT } from "./types";
 
 function r_getSubject(data) {
@@ -8,21 +9,29 @@ function r_getSubject(data) {
   };
 }
 
+function r_addSubejct(data) {
+  return {
+    type: ADD_SUBEJCT,
+    payload: data,
+  };
+}
+
 export function getSubject(dataTosubmit) {
   return (dispatch) => {
-    axios.post("api/get-subject", dataTosubmit).then(({ data }) => {
-      dispatch(r_getSubject(data));
-    });
+    axios
+      .post("api/get-subject", dataTosubmit)
+      .then(({ data: { success, message, subjects } }) => {
+        if (!success) return dispatch(catchError(message));
+        return dispatch(r_getSubject({ subjects }));
+      });
   };
 }
 
 export function addSubject(dataTosubmit) {
-  const request = axios
-    .post("/api/add-subject", dataTosubmit)
-    .then((response) => response.data);
-  return {
-    type: ADD_SUBEJCT,
-    payload: request,
+  return (dispatch) => {
+    axios.post("/api/add-subject", dataTosubmit).then(({ data }) => {
+      dispatch(r_addSubejct(data));
+    });
   };
 }
 

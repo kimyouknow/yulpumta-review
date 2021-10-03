@@ -11,17 +11,17 @@ const initState = {
 const userReducer = (state = initState, action) => {
   switch (action.type) {
     case LOGIN_USER:
-      return { ...state, name: action.payload.name };
-    case REGISTER_USER:
-      return { ...state };
-    case AUTH_USER:
-      const {
-        payload: { name, token },
-      } = action;
+      const { name, token } = action.payload;
       return {
         ...state,
         name,
         token,
+      };
+    case REGISTER_USER:
+      return { ...state };
+    case AUTH_USER:
+      return {
+        ...state,
       };
     default:
       return state;

@@ -1,4 +1,3 @@
-import User from "../models/User";
 import Subject from "../models/Subject";
 
 export const getSubject = async (req, res) => {

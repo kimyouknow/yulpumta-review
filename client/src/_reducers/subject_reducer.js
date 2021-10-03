@@ -7,20 +7,21 @@ import {
 
 const initState = {
   subjects: [],
-  error: "",
+  newSubject: {},
 };
 
 const subjectReducer = (state = initState, action) => {
-  // type마다 다른 것을 switch로 처리
   switch (action.type) {
     case GET_SUBJECT:
       return {
         ...state,
         subjects: action.payload.subjects,
-        error: action.payload.message,
       };
     case ADD_SUBEJCT:
-      return { ...state, subjectData: action.payload };
+      return {
+        ...state,
+        newSubject: action.payload.newSubject,
+      };
     case EDIT_SUBEJCT:
       return { ...state, subjectData: action.payload };
     case DEL_SUBEJCT:
