@@ -7,7 +7,6 @@ import {
 
 const initState = {
   subjects: [],
-  newSubject: {},
 };
 
 const subjectReducer = (state = initState, action) => {
@@ -20,12 +19,23 @@ const subjectReducer = (state = initState, action) => {
     case ADD_SUBEJCT:
       return {
         ...state,
-        newSubject: action.payload.newSubject,
+        subjects: [...state.subjects, action.payload],
       };
     case EDIT_SUBEJCT:
-      return { ...state, subjectData: action.payload };
+      const target = action.payload;
+      return {
+        ...state,
+        subjects: state.subjects.map((el) =>
+          el._id === target._id ? (el = target) : el
+        ),
+      };
     case DEL_SUBEJCT:
-      return { ...state, subjectData: action.payload };
+      return {
+        ...state,
+        subjects: state.subjects.filter(
+          (el) => el._id !== action.payload.subject_id
+        ),
+      };
     default:
       return state;
   }

@@ -16,6 +16,20 @@ function r_addSubejct(data) {
   };
 }
 
+function r_editSubejct(data) {
+  return {
+    type: EDIT_SUBEJCT,
+    payload: data,
+  };
+}
+
+function r_deleteSubejct(data) {
+  return {
+    type: DEL_SUBEJCT,
+    payload: data,
+  };
+}
+
 export function getSubject(dataTosubmit) {
   return (dispatch) => {
     axios
@@ -29,28 +43,33 @@ export function getSubject(dataTosubmit) {
 
 export function addSubject(dataTosubmit) {
   return (dispatch) => {
-    axios.post("/api/add-subject", dataTosubmit).then(({ data }) => {
-      dispatch(r_addSubejct(data));
-    });
+    axios
+      .post("/api/add-subject", dataTosubmit)
+      .then(({ data: { success, message, newSubject } }) => {
+        if (!success) return dispatch(catchError(message));
+        return dispatch(r_addSubejct(newSubject));
+      });
   };
 }
 
 export function editSubject(dataTosubmit) {
-  const request = axios
-    .post("/api/edit-subject", dataTosubmit)
-    .then((response) => response.data);
-  return {
-    type: EDIT_SUBEJCT,
-    payload: request,
+  return (dispatch) => {
+    axios
+      .post("/api/edit-subject", dataTosubmit)
+      .then(({ data: { success, message, subject } }) => {
+        if (!success) return dispatch(catchError(message));
+        return dispatch(r_editSubejct(subject));
+      });
   };
 }
 
 export function deleteSubject(dataTosubmit) {
-  const request = axios
-    .post("/api/del-subject", dataTosubmit)
-    .then((response) => response.data);
-  return {
-    type: DEL_SUBEJCT,
-    payload: request,
+  return (dispatch) => {
+    axios
+      .post("/api/del-subject", dataTosubmit)
+      .then(({ data: { success, message } }) => {
+        if (!success) return dispatch(catchError(message));
+        return dispatch(r_deleteSubejct(dataTosubmit));
+      });
   };
 }

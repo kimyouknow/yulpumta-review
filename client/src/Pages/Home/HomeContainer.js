@@ -14,10 +14,10 @@ function HomeContainer() {
   const { subject, user, global } = useSelector((state) => state);
   const { token } = user;
   const [ModalContent, setModalContent] = useState(null);
-  const handleModal = (text) => {
+  const handleModal = (text, subject) => {
     text === "add"
       ? setModalContent(<AddSubjectModal />)
-      : setModalContent(<EditSubjectModal />);
+      : setModalContent(<EditSubjectModal subject={subject} />);
     if (!global.isOpen) {
       dispatch(openModal());
     }
@@ -33,8 +33,11 @@ function HomeContainer() {
     });
   };
   useEffect(() => {
-    dispatch(getSubject({ token }));
+    if (token) {
+      dispatch(getSubject({ token }));
+    }
   }, [user]);
+  console.log(subject);
   return (
     <HomePresenter
       subject={subject}

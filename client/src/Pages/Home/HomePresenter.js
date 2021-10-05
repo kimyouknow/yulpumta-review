@@ -31,7 +31,9 @@ function HomePresenter({
               <li key={subject._id}>
                 <span>{subject.title}</span>
                 <span>{subject.color}</span>
-                <button onClick={() => handleModal("edit")}>수정</button>
+                <button onClick={() => handleModal("edit", subject)}>
+                  수정
+                </button>
               </li>
             ))
           )}
