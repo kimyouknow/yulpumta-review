@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { addSubject } from "_actions/subject_actions";
 import { closeModal } from "_actions/global_actions";
 
-function AddSubjectModal(props) {
+function AddSubjectModal() {
   const dispatch = useDispatch();
-  const { subject, user } = useSelector((state) => state);
+  const { user } = useSelector((state) => state);
   const [title, setTitle] = useState("");
   const [color, setColor] = useState("");
   const handleSubmit = async (e) => {

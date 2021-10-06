@@ -1,7 +1,8 @@
 import ErrModal from "Components/ModalContent/ErrModal";
 import Modal from "Pages/Modal/Modal";
 import React from "react";
-// import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 function HomePresenter({
   subject,
@@ -29,8 +30,10 @@ function HomePresenter({
           ) : (
             subjects.map((subject) => (
               <li key={subject._id}>
+                <Link to={{ pathname: "/active", state: subject }}>
+                  <button>기록</button>
+                </Link>
                 <span>{subject.title}</span>
-                <span>{subject.color}</span>
                 <button onClick={() => handleModal("edit", subject)}>
                   수정
                 </button>
@@ -49,4 +52,21 @@ function HomePresenter({
     </div>
   );
 }
+
+HomePresenter.propTypes = {
+  subject: PropTypes.shape({
+    _id: PropTypes.string,
+    color: PropTypes.string,
+    user_id: PropTypes.string,
+    lapses: PropTypes.array,
+  }),
+  global: PropTypes.shape({
+    isOpen: PropTypes.bool,
+    errMsg: PropTypes.string,
+  }),
+  ModalContent: PropTypes.element,
+  clickLogout: PropTypes.func,
+  handleModal: PropTypes.func,
+};
+
 export default HomePresenter;

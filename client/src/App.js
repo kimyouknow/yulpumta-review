@@ -10,6 +10,7 @@ import Nav from "Components/nav";
 // import Rank from "Pages/Rank";
 // import Login from "Pages/Login";
 // import Register from "Pages/Register";
+const Active = lazy(() => import("Pages/Active"));
 const Home = lazy(() => import("Pages/Home"));
 const Stat = lazy(() => import("Pages/Stat"));
 const Planner = lazy(() => import("Pages/Planner"));
@@ -25,6 +26,7 @@ function App() {
         <Nav />
         <Switch>
           <Route exact path="/" component={Auth(Home, true)} />
+          <Route exact path="/active" component={Auth(Active, true)} />
           <Route path="/stat" component={Auth(Stat, true)} />
           <Route path="/planner" component={Auth(Planner, true)} />
           <Route path="/group" component={Auth(Group, true)} />

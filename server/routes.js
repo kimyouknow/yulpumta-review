@@ -13,6 +13,7 @@ const GET_SUBJECT = "/get-subject";
 const ADD_SUBJECT = "/add-subject";
 const DEL_SUBJECT = "/del-subject";
 const EDIT_SUBJECT = "/edit-subject";
+const ACTIVE = "/active";
 
 const routes = {
   auth: AUTH,
@@ -21,6 +22,7 @@ const routes = {
   login: LOGIN,
   logout: LOGOUT,
   withdrawal: WITHDRAWAL,
+  active: ACTIVE,
   getSubject: GET_SUBJECT,
   addSubject: ADD_SUBJECT,
   delSubject: DEL_SUBJECT,

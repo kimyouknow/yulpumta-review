@@ -1,5 +1,9 @@
 import Subject from "../models/Subject";
 
+export const recordActive = async (req, res) => {
+  console.log(req);
+};
+
 export const getSubject = async (req, res) => {
   const { user } = req;
   const { subjects } = await user.populate("subjects");
