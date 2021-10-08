@@ -1,46 +1,33 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router";
+import { recordSubejct } from "_actions/subject_actions";
 import ActivePresenter from "./ActivePresenter";
-
-function useInterval(callback, delay) {
-  const savedCallback = useRef();
-
-  // Remember the latest function.
-  useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  // Set up the interval.
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
-    if (delay !== null) {
-      let id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-  }, [delay]);
-}
 
 function ActiveContainer() {
   const { subject, user, global } = useSelector((state) => state);
+  const { token } = user;
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
   const { state } = useLocation();
-  const [count, setCount] = useState(0);
-  const [isRunning, setIsRunning] = useState(true);
-  const stopHandler = () => {
-    console.log("stop");
-    setIsRunning(!isRunning);
+  const [startTime, setStartTime] = useState(new Date());
+  const stopHandler = async () => {
+    const endTime = new Date();
+    const body = {
+      token: "asdfasdfasdf",
+      subject_id: state._id,
+      startTime,
+      endTime,
+      lapse: Math.floor((endTime.getTime() - startTime.getTime()) / 1000),
+    };
+    console.log(body);
+    dispatch(recordSubejct(body));
+    // if (!global.isOpen) {
+    //   history.push("/");
+    // }
   };
-  useInterval(
-    () => {
-      setCount(count + 1);
-    },
-    isRunning ? 1000 : null
-  );
-  return <ActivePresenter count={count} stopHandler={stopHandler} />;
+
+  return <ActivePresenter stopHandler={stopHandler} />;
 }
 
 export default ActiveContainer;

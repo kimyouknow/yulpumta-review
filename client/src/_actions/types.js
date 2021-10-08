@@ -9,6 +9,8 @@ export const GET_SUBJECT = "getSubject";
 export const ADD_SUBEJCT = "addSubject";
 export const EDIT_SUBEJCT = "editSubject";
 export const DEL_SUBEJCT = "delSubject";
+export const ACTIVE_SUBJECT = "activeSubject";
+export const RECORD_SUBJECT = "recrodSubject";
 
 // Modal
 export const OPEN_MODAL = "open_modal";

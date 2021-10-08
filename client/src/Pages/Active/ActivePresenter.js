@@ -1,10 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import CounterWrapper from "Components/CounterWrapper";
 
-function ActivePresenter({ count, stopHandler }) {
+function ActivePresenter({ stopHandler }) {
+  console.log("presenter");
   return (
     <div>
-      <h3>{count}</h3>
+      <CounterWrapper>
+        <div>hello</div>
+      </CounterWrapper>
       <button onClick={stopHandler}>중지</button>
     </div>
   );

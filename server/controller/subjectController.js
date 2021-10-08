@@ -1,10 +1,28 @@
+import Lapse from "../models/Lapse";
 import Subject from "../models/Subject";
+// findUser 미들웨어로 token으로 로그인한 유저의 정보를 db에서 찾는 과정을 정리
+// findSubject 미들웨어로 user 내에서 요청한 과목이 있는지 체크
+// checkSubjectTitle 미들웨어로 user 내에서 과목명이 겹치는 것이 있는지 체크
 
 export const recordActive = async (req, res) => {
-  console.log(req);
+  const {
+    user,
+    subject,
+    body: { token, startTime, endTime, lapse },
+  } = req;
+  console.log(user, subject, lapse);
+  //   const newLapse = await Lapse.create({
+  //     user_id
+  // subject_id
+  // l_date
+  // l_start_time
+  // l_end_time
+  // l_lapse
+  //   })
 };
 
 export const getSubject = async (req, res) => {
+  // findUser
   const { user } = req;
   const { subjects } = await user.populate("subjects");
   return res.json({
@@ -15,6 +33,8 @@ export const getSubject = async (req, res) => {
 };
 
 export const addSubject = async (req, res) => {
+  // findUser
+  // checkSubjectTitle
   const {
     body: { title, color },
     user,
@@ -33,6 +53,9 @@ export const addSubject = async (req, res) => {
 };
 
 export const editSubject = async (req, res) => {
+  // findUser
+  // findSubject
+  // checkSubjectTitle
   const {
     body: { title, color },
     subject,
@@ -54,6 +77,9 @@ export const editSubject = async (req, res) => {
   }
 };
 export const delSubject = async (req, res) => {
+  // findUser
+  // findSubject
+  // checkSubjectTitle
   const {
     user,
     subject: { user_id, _id },

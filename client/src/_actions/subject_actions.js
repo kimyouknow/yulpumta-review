@@ -1,6 +1,12 @@
 import axios from "axios";
 import { catchError } from "./global_actions";
-import { ADD_SUBEJCT, DEL_SUBEJCT, EDIT_SUBEJCT, GET_SUBJECT } from "./types";
+import {
+  ACTIVE_SUBJECT,
+  ADD_SUBEJCT,
+  DEL_SUBEJCT,
+  EDIT_SUBEJCT,
+  GET_SUBJECT,
+} from "./types";
 
 function r_getSubject(data) {
   return {
@@ -26,6 +32,13 @@ function r_editSubejct(data) {
 function r_deleteSubejct(data) {
   return {
     type: DEL_SUBEJCT,
+    payload: data,
+  };
+}
+
+function r_recordSubejct(data) {
+  return {
+    type: ACTIVE_SUBJECT,
     payload: data,
   };
 }
@@ -70,6 +83,17 @@ export function deleteSubject(dataTosubmit) {
       .then(({ data: { success, message } }) => {
         if (!success) return dispatch(catchError(message));
         return dispatch(r_deleteSubejct(dataTosubmit));
+      });
+  };
+}
+
+export function recordSubejct(dataTosubmit) {
+  return (dispatch) => {
+    axios
+      .post("/api/record-subject", dataTosubmit)
+      .then(({ data: { success, message } }) => {
+        if (!success) return dispatch(catchError(message));
+        return dispatch(r_recordSubejct(dataTosubmit));
       });
   };
 }

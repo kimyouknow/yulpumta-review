@@ -3,10 +3,12 @@ import {
   DEL_SUBEJCT,
   EDIT_SUBEJCT,
   GET_SUBJECT,
+  RECORD_SUBJECT,
 } from "_actions/types";
 
 const initState = {
   subjects: [],
+  activeS: {},
 };
 
 const subjectReducer = (state = initState, action) => {
@@ -36,6 +38,9 @@ const subjectReducer = (state = initState, action) => {
           (el) => el._id !== action.payload.subject_id
         ),
       };
+    case RECORD_SUBJECT:
+      console.log(action.payload);
+      return state;
     default:
       return state;
   }
