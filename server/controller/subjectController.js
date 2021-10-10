@@ -8,23 +8,37 @@ export const recordActive = async (req, res) => {
   const {
     user,
     subject,
-    body: { token, startTime, endTime, lapse },
+    body: { startTime, endTime, lapse },
   } = req;
-  console.log(user, subject, lapse);
-  //   const newLapse = await Lapse.create({
-  //     user_id
-  // subject_id
-  // l_date
-  // l_start_time
-  // l_end_time
-  // l_lapse
-  //   })
+  try {
+    const newLapse = new Lapse({
+      user_id: user._id,
+      subject_id: subject._id,
+      l_date: new Date(),
+      l_start_time: startTime,
+      l_end_time: endTime,
+      l_lapse: lapse,
+    });
+    await newLapse.save();
+    await subject.lapses.push(newLapse);
+    subject.save();
+  } catch (err) {
+    return res.json({
+      success: false,
+      message: err.message,
+    });
+  }
+  return res.json({
+    success: true,
+  });
 };
 
 export const getSubject = async (req, res) => {
   // findUser
   const { user } = req;
-  const { subjects } = await user.populate("subjects");
+  const subjects = await Subject.find({ user_id: user._id });
+  // subejct 각각의 요소들에 대해서
+
   return res.json({
     success: true,
     message: "",

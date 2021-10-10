@@ -34,6 +34,7 @@ function HomePresenter({
                   <button>기록</button>
                 </Link>
                 <span>{subject.title}</span>
+                <span>{subject.lapse}</span>
                 <button onClick={() => handleModal("edit", subject)}>
                   수정
                 </button>
@@ -44,7 +45,7 @@ function HomePresenter({
       </div>
       {global.isOpen && (
         <Modal onClose={handleModal}>
-          {global.errMsg ? <ErrModal /> : ModalContent}
+          {global.errMsg ? <ErrModal msg={global.errMsg} /> : ModalContent}
         </Modal>
       )}
       {/* <div>Modal</div>

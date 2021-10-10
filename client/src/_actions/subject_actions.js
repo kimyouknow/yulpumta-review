@@ -1,7 +1,7 @@
 import axios from "axios";
 import { catchError } from "./global_actions";
 import {
-  ACTIVE_SUBJECT,
+  RECORD_SUBJECT,
   ADD_SUBEJCT,
   DEL_SUBEJCT,
   EDIT_SUBEJCT,
@@ -36,12 +36,12 @@ function r_deleteSubejct(data) {
   };
 }
 
-function r_recordSubejct(data) {
-  return {
-    type: ACTIVE_SUBJECT,
-    payload: data,
-  };
-}
+// function r_recordSubejct(data) {
+//   return {
+//     type: RECORD_SUBJECT,
+//     payload: data,
+//   };
+// }
 
 export function getSubject(dataTosubmit) {
   return (dispatch) => {
@@ -87,13 +87,20 @@ export function deleteSubject(dataTosubmit) {
   };
 }
 
-export function recordSubejct(dataTosubmit) {
-  return (dispatch) => {
-    axios
-      .post("/api/record-subject", dataTosubmit)
-      .then(({ data: { success, message } }) => {
-        if (!success) return dispatch(catchError(message));
-        return dispatch(r_recordSubejct(dataTosubmit));
-      });
+// export function recordSubejct(dataTosubmit) {
+//   return (dispatch) => {
+//     axios
+//       .post("/api/record-subject", dataTosubmit)
+//       .then(({ data: { success, message } }) => {
+//         if (!success) return dispatch(catchError(message));
+//         return dispatch(r_recordSubejct(dataTosubmit));
+//       });
+//   };
+// }
+export async function recordSubejct(dataTosubmit) {
+  const request = await axios.post("/api/record-subject", dataTosubmit);
+  return {
+    type: RECORD_SUBJECT,
+    payload: request,
   };
 }

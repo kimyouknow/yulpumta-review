@@ -15,10 +15,10 @@ const subjectSchema = mongoose.Schema({
   color: {
     type: String,
   },
-  lapses: [
+  dates: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Lapse",
+      ref: "Date",
     },
   ],
 });

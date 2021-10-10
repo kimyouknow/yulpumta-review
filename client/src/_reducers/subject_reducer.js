@@ -39,7 +39,6 @@ const subjectReducer = (state = initState, action) => {
         ),
       };
     case RECORD_SUBJECT:
-      console.log(action.payload);
       return state;
     default:
       return state;

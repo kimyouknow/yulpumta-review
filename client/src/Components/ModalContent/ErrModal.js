@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
 
-function ErrModal() {
-  const { global } = useSelector((state) => state);
-  return <div>{global.errMsg}</div>;
+function ErrModal({ msg }) {
+  return <div>{msg}</div>;
 }
 
-ErrModal.propTypes = {};
+ErrModal.propTypes = {
+  msg: PropTypes.string,
+};
 
 export default ErrModal;
