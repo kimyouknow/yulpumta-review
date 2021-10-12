@@ -6,7 +6,7 @@ const scheduleSchema = mongoose.Schema({
     required: true,
   },
   s_date: {
-    type: Date,
+    type: String,
     required: true,
   },
   isDone: {

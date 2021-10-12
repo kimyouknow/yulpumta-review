@@ -15,13 +15,16 @@ function ActiveContainer() {
     }
   };
   const history = useHistory();
-  const { state } = useLocation();
+  const {
+    state: { subject },
+  } = useLocation();
   const [startTime, setStartTime] = useState(new Date());
+  const { _id } = subject;
   const stopHandler = async () => {
     const endTime = new Date();
     const body = {
       token,
-      subject_id: state._id,
+      subject_id: _id,
       startTime,
       endTime,
       lapse: Math.floor((endTime.getTime() - startTime.getTime()) / 1000),
@@ -34,9 +37,11 @@ function ActiveContainer() {
     if (!success) return dispatch(catchError(message));
     history.push("/");
   };
+
   return (
     <ActivePresenter
       global={global}
+      subject={subject}
       stopHandler={stopHandler}
       handleModal={handleModal}
     />

@@ -6,6 +6,7 @@ import {
   DEL_SUBEJCT,
   EDIT_SUBEJCT,
   GET_SUBJECT,
+  ACTIVE_SUBJECT,
 } from "./types";
 
 function r_getSubject(data) {
@@ -36,12 +37,20 @@ function r_deleteSubejct(data) {
   };
 }
 
-// function r_recordSubejct(data) {
-//   return {
-//     type: RECORD_SUBJECT,
-//     payload: data,
-//   };
-// }
+export async function recordSubejct(dataTosubmit) {
+  const request = await axios.post("/api/record-subject", dataTosubmit);
+  return {
+    type: RECORD_SUBJECT,
+    payload: request,
+  };
+}
+
+export function activeSubject(subejct) {
+  return {
+    type: ACTIVE_SUBJECT,
+    payload: subejct,
+  };
+}
 
 export function getSubject(dataTosubmit) {
   return (dispatch) => {
@@ -84,23 +93,5 @@ export function deleteSubject(dataTosubmit) {
         if (!success) return dispatch(catchError(message));
         return dispatch(r_deleteSubejct(dataTosubmit));
       });
-  };
-}
-
-// export function recordSubejct(dataTosubmit) {
-//   return (dispatch) => {
-//     axios
-//       .post("/api/record-subject", dataTosubmit)
-//       .then(({ data: { success, message } }) => {
-//         if (!success) return dispatch(catchError(message));
-//         return dispatch(r_recordSubejct(dataTosubmit));
-//       });
-//   };
-// }
-export async function recordSubejct(dataTosubmit) {
-  const request = await axios.post("/api/record-subject", dataTosubmit);
-  return {
-    type: RECORD_SUBJECT,
-    payload: request,
   };
 }

@@ -10,8 +10,9 @@ const lapseSchema = mongoose.Schema({
     required: true,
   },
   l_date: {
-    type: Date,
+    type: String,
     required: true,
+    ref: "Day",
   },
   l_start_time: {
     type: String,

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
+import { catchError } from "_actions/global_actions";
 import { loginUser } from "_actions/user_actions";
 import LoginPresenter from "./LoginPresenter";
 
@@ -22,7 +23,7 @@ function LoginContainer() {
       password: Password,
     };
     dispatch(loginUser(body)).then(({ payload: { success, message } }) => {
-      if (!success) return alert(message);
+      if (!success) return dispatch(catchError(message));
       history.push("/");
     });
   };

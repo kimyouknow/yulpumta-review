@@ -1,12 +1,17 @@
 import mongoose from "mongoose";
 
-const dateSchema = mongoose.Schema({
+const daySchema = mongoose.Schema({
   user_id: {
     type: String,
     required: true,
   },
+  subect_id: {
+    type: String,
+    required: true,
+    ref: "Subject",
+  },
   d_date: {
-    type: Date,
+    type: String,
     required: true,
   },
   lapses: [
@@ -23,5 +28,5 @@ const dateSchema = mongoose.Schema({
   ],
 });
 
-const Date = mongoose.model("Date", dateSchema);
-export default Date;
+const Day = mongoose.model("Day", daySchema);
+export default Day;

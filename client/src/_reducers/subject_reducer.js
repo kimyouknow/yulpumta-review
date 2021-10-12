@@ -1,4 +1,5 @@
 import {
+  ACTIVE_SUBJECT,
   ADD_SUBEJCT,
   DEL_SUBEJCT,
   EDIT_SUBEJCT,
@@ -37,6 +38,12 @@ const subjectReducer = (state = initState, action) => {
         subjects: state.subjects.filter(
           (el) => el._id !== action.payload.subject_id
         ),
+      };
+    case ACTIVE_SUBJECT:
+      console.log(action.payload);
+      return {
+        ...state,
+        activeS: action.payload,
       };
     case RECORD_SUBJECT:
       return state;

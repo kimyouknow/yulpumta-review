@@ -4,11 +4,12 @@ import CounterWrapper from "Components/CounterWrapper";
 import Modal from "Pages/Modal/Modal";
 import ErrModal from "Components/ModalContent/ErrModal";
 
-function ActivePresenter({ global, stopHandler, handleModal }) {
+function ActivePresenter({ global, stopHandler, handleModal, subject }) {
+  const { title, color } = subject;
   return (
     <div>
       <CounterWrapper global={global}>
-        <div>hello</div>
+        <div>{title}</div>
       </CounterWrapper>
       <button onClick={stopHandler}>중지</button>
       {global.isOpen && global.errMsg && (

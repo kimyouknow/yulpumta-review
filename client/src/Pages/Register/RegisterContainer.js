@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
+import { catchError } from "_actions/global_actions";
 import { registerUser } from "_actions/user_actions";
 import RegisterPresenter from "./RegisterPresenter";
 
@@ -29,7 +30,7 @@ function RegisterContainer() {
       password: Password,
     };
     dispatch(registerUser(body)).then(({ payload: { success, message } }) => {
-      if (!success) return alert(message);
+      if (!success) return dispatch(catchError(message));
       history.push("/login");
     });
   };

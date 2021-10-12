@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import HomePresenter from "./HomePresenter";
 import { getSubject } from "_actions/subject_actions";
-import { openModal } from "_actions/global_actions";
+import { catchError, openModal } from "_actions/global_actions";
 import AddSubjectModal from "Components/ModalContent/AddSubjectModal";
 import EditSubjectModal from "Components/ModalContent/EditSubejctModal";
 
@@ -14,7 +14,8 @@ function HomeContainer() {
   const { subject, user, global } = useSelector((state) => state);
   const { token } = user;
   const [ModalContent, setModalContent] = useState(null);
-  const handleModal = (text, subject) => {
+  const handleModal = (text, subject) => () => {
+    console.log(subject);
     text === "add"
       ? setModalContent(<AddSubjectModal />)
       : setModalContent(<EditSubjectModal subject={subject} />);
@@ -27,8 +28,7 @@ function HomeContainer() {
       if (success) {
         history.push("/login");
       } else {
-        console.log(message);
-        alert("Failed to logout");
+        dispatch(catchError(message));
       }
     });
   };
