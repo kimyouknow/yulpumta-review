@@ -29,7 +29,7 @@ const subjectReducer = (state = initState, action) => {
       return {
         ...state,
         subjects: state.subjects.map((el) =>
-          el._id === target._id ? (el = target) : el
+          el._id === target._id ? (el = { ...el, title: target.title }) : el
         ),
       };
     case DEL_SUBEJCT:

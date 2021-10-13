@@ -4,6 +4,7 @@ import Subject from "../models/Subject";
 // findUser 미들웨어로 token으로 로그인한 유저의 정보를 db에서 찾는 과정을 정리
 // findSubject 미들웨어로 user 내에서 요청한 과목이 있는지 체크
 // checkSubjectTitle 미들웨어로 user 내에서 과목명이 겹치는 것이 있는지 체크
+const s_today = String(new Date()).substring(0, 15);
 
 export const recordActive = async (req, res) => {
   const {
@@ -11,49 +12,48 @@ export const recordActive = async (req, res) => {
     subject,
     body: { startTime, endTime, lapse },
   } = req;
-  const s_today = String(new Date()).substring(0, 15);
   try {
-    // 이미 lpase가 기록된 날짜가 있는지 확인
     const today = await Day.findOne({
-      user_id: user._id,
-      subject_id: subject._id,
+      subject_id: String(subject._id),
+      user_id: String(user._id),
       d_date: s_today,
     });
     if (!today) {
       console.log("오늘날짜 없음");
       const newDay = new Day({
         user_id: user._id,
-        subect_id: subject._id,
+        subject_id: subject._id,
         d_date: s_today,
       });
+      await newDay.save();
       const newLapse = new Lapse({
         user_id: user._id,
         subject_id: subject._id,
-        l_date: newDate._id,
+        l_date: newDay._id,
         l_start_time: startTime,
         l_end_time: endTime,
         l_lapse: lapse,
       });
-      newDay.lapses.push(newLapse);
       await newLapse.save();
+      newDay.lapses.push(newLapse);
       await newDay.save();
+      // subject의 dates에도 오늘날짜 추가
       subject.dates.push(newDay);
       await subject.save();
+    } else {
+      console.log("오늘날짜 있음");
+      const newLapse = new Lapse({
+        user_id: user._id,
+        subject_id: subject._id,
+        l_date: today._id,
+        l_start_time: startTime,
+        l_end_time: endTime,
+        l_lapse: lapse,
+      });
+      today.lapses.push(newLapse);
+      await today.save();
+      await newLapse.save();
     }
-    console.log("오늘날짜 있음");
-    const newLapse = new Lapse({
-      user_id: user._id,
-      subject_id: subject._id,
-      l_date: today._id,
-      l_start_time: startTime,
-      l_end_time: endTime,
-      l_lapse: lapse,
-    });
-    today.lapses.push(newLapse);
-    await newLapse.save();
-    await today.save();
-    subject.dates.push(today);
-    await subject.save();
   } catch (err) {
     return res.json({
       success: false,
@@ -68,9 +68,21 @@ export const recordActive = async (req, res) => {
 export const getSubject = async (req, res) => {
   // findUser
   const { user } = req;
-  const subjects = await Subject.find({ user_id: user._id });
-  // subejct 각각의 요소들에 대해서
-  console.log(subjects);
+  const data = await Subject.find({ user_id: user._id }).populate({
+    path: "dates",
+    populate: {
+      path: "lapses",
+      model: "Lapse",
+    },
+  });
+  // subejct 각각의 요소들에 대해서 최신날짜 데이터 고르기 subject.dates[subject.dates.length - 1]
+  // 최신날짜에서 lpases를 추출하고 합을 todayTotalT에 넣고 반환
+  const subjects = data.map((subject) => {
+    const { _id, title, user_id, color } = subject;
+    const todayLapses = subject.dates[subject.dates.length - 1].lapses;
+    const todayTotalT = todayLapses.reduce((acc, cur) => acc + cur.l_lapse, 0);
+    return { _id, title, user_id, color, todayTotalT };
+  });
   return res.json({
     success: true,
     message: "",
@@ -128,7 +140,7 @@ export const delSubject = async (req, res) => {
   // checkSubjectTitle
   const {
     user,
-    subject: { user_id, _id },
+    subject: { user_id, _id, dates },
   } = req;
   if (String(user_id) !== String(user._id))
     return res.json({
@@ -138,6 +150,14 @@ export const delSubject = async (req, res) => {
   try {
     await Subject.findByIdAndDelete(_id);
     await user.subjects.splice(user.subjects.indexOf(_id), 1);
+    // dates.forEach(async (date) => {
+    //   await Day.findByIdAndDelete(date);
+    //   const lapses = await Day.findById(date).populate({ path: "lapses" });
+    //   lapses.forEach(async (lapse) => {
+    //     await Lapse.findById(lapse);
+    //   });
+    // });
+
     user.save();
   } catch (err) {
     console.log(err);

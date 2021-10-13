@@ -21,7 +21,7 @@ function useCounter() {
   return { count, start, stop, reset };
 }
 
-function CounterWrapper({ global, children }) {
+function CounterWrapper({ global, totalTime, children }) {
   const { count, start, stop, reset } = useCounter();
   useEffect(() => {
     start();
@@ -29,7 +29,7 @@ function CounterWrapper({ global, children }) {
   }, []);
   return (
     <div className={"wrapper"}>
-      <div>{count}</div>
+      <div>{count + totalTime}</div>
       <div>{children}</div>
     </div>
   );

@@ -15,7 +15,6 @@ function HomeContainer() {
   const { token } = user;
   const [ModalContent, setModalContent] = useState(null);
   const handleModal = (text, subject) => () => {
-    console.log(subject);
     text === "add"
       ? setModalContent(<AddSubjectModal />)
       : setModalContent(<EditSubjectModal subject={subject} />);

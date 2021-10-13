@@ -5,10 +5,10 @@ import Modal from "Pages/Modal/Modal";
 import ErrModal from "Components/ModalContent/ErrModal";
 
 function ActivePresenter({ global, stopHandler, handleModal, subject }) {
-  const { title, color } = subject;
+  const { title, todayTotalT } = subject;
   return (
     <div>
-      <CounterWrapper global={global}>
+      <CounterWrapper global={global} totalTime={todayTotalT}>
         <div>{title}</div>
       </CounterWrapper>
       <button onClick={stopHandler}>중지</button>

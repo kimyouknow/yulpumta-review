@@ -18,7 +18,7 @@ const subjectSchema = mongoose.Schema({
   dates: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Date",
+      ref: "Day",
     },
   ],
 });

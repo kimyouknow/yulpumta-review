@@ -5,7 +5,7 @@ const daySchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  subect_id: {
+  subject_id: {
     type: String,
     required: true,
     ref: "Subject",
