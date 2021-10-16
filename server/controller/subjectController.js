@@ -79,9 +79,16 @@ export const getSubject = async (req, res) => {
   // 최신날짜에서 lpases를 추출하고 합을 todayTotalT에 넣고 반환
   const subjects = data.map((subject) => {
     const { _id, title, user_id, color } = subject;
-    const todayLapses = subject.dates[subject.dates.length - 1].lapses;
-    const todayTotalT = todayLapses.reduce((acc, cur) => acc + cur.l_lapse, 0);
-    return { _id, title, user_id, color, todayTotalT };
+    if (subject.dates.length === 0) {
+      return { _id, title, user_id, color, todayTotalT: 0 };
+    } else {
+      const todayLapses = subject.dates[subject.dates.length - 1].lapses;
+      const todayTotalT = todayLapses.reduce(
+        (acc, cur) => acc + cur.l_lapse,
+        0
+      );
+      return { _id, title, user_id, color, todayTotalT };
+    }
   });
   return res.json({
     success: true,
@@ -97,13 +104,14 @@ export const addSubject = async (req, res) => {
     body: { title, color },
     user,
   } = req;
-  const newSubject = await Subject.create({
+  const newSubject = new Subject({
     user_id: user._id,
     color,
     title,
   });
+  await newSubject.save();
   user.subjects.push(newSubject);
-  user.save();
+  await user.save();
   return res.json({
     success: true,
     newSubject,
@@ -148,17 +156,15 @@ export const delSubject = async (req, res) => {
       message: "유저 ID가 일치하지 않습니다.",
     });
   try {
+    // 1.유저의 subjects에서 해당 과목 지우기
+    // 2.subject 지우기
+    // 3. day에서 subject의 _id인거 지우기
+    // 4. lapse에서 subject의 _id인거 지우기
     await Subject.findByIdAndDelete(_id);
     await user.subjects.splice(user.subjects.indexOf(_id), 1);
-    // dates.forEach(async (date) => {
-    //   await Day.findByIdAndDelete(date);
-    //   const lapses = await Day.findById(date).populate({ path: "lapses" });
-    //   lapses.forEach(async (lapse) => {
-    //     await Lapse.findById(lapse);
-    //   });
-    // });
-
     user.save();
+    await Day.deleteMany({ subject_id: _id });
+    await Lapse.deleteMany({ subject_id: _id });
   } catch (err) {
     console.log(err);
     return res.json({
