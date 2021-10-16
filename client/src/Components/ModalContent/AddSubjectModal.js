@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { addSubject } from "_actions/subject_actions";
@@ -9,16 +9,19 @@ function AddSubjectModal() {
   const { user } = useSelector((state) => state);
   const [title, setTitle] = useState("");
   const [color, setColor] = useState("");
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const body = {
-      token: user.token,
-      title,
-      color,
-    };
-    await dispatch(addSubject(body));
-    dispatch(closeModal());
-  };
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      const body = {
+        token: user.token,
+        title,
+        color,
+      };
+      await dispatch(addSubject(body));
+      dispatch(closeModal());
+    },
+    [user, title, color, dispatch]
+  );
   return (
     <form onSubmit={handleSubmit}>
       <input

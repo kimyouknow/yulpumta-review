@@ -47,8 +47,6 @@ function HomePresenter({
           {global.errMsg ? <ErrModal msg={global.errMsg} /> : ModalContent}
         </Modal>
       )}
-      {/* <div>Modal</div>
-      </Modal> */}
     </div>
   );
 }

@@ -3,13 +3,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Auth from "_hoc/auth";
 
 import Nav from "Components/nav";
-// import Home from "Pages/Home";
-// import Stat from "Pages/Stat";
-// import Planner from "Pages/Planner";
-// import Group from "Pages/Group";
-// import Rank from "Pages/Rank";
-// import Login from "Pages/Login";
-// import Register from "Pages/Register";
+import Modal from "Pages/Modal/Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { closeModal } from "_actions/global_actions";
+import ErrModal from "Components/ModalContent/ErrModal";
+
 const Active = lazy(() => import("Pages/Active"));
 const Home = lazy(() => import("Pages/Home"));
 const Stat = lazy(() => import("Pages/Stat"));

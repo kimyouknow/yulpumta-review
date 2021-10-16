@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteSubject, editSubject } from "_actions/subject_actions";
@@ -10,25 +10,28 @@ function EditSubjectModal({ subject }) {
   const { _id, color: pre_color, title: pre_title } = subject;
   const [title, setTitle] = useState(pre_title);
   const [color, setColor] = useState(pre_color);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const body = {
-      token: user.token,
-      subject_id: _id,
-      title,
-      color,
-    };
-    await dispatch(editSubject(body));
-    dispatch(closeModal());
-  };
-  const handleDel = async () => {
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      const body = {
+        token: user.token,
+        subject_id: _id,
+        title,
+        color,
+      };
+      await dispatch(editSubject(body));
+      dispatch(closeModal());
+    },
+    [user, _id, title, color, dispatch]
+  );
+  const handleDel = useCallback(async () => {
     const body = {
       token: user.token,
       subject_id: _id,
     };
     await dispatch(deleteSubject(body));
     dispatch(closeModal());
-  };
+  }, [user, _id, dispatch]);
   return (
     <form onSubmit={handleSubmit}>
       <input

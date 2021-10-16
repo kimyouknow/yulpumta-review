@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { catchError } from "_actions/global_actions";
@@ -10,23 +10,35 @@ function LoginContainer() {
   const dispatch = useDispatch();
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
-  const moveToRegister = () => history.push("/register");
-  const onEmailHandler = (e) => setEmail(e.currentTarget.value);
+  const moveToRegister = useCallback(
+    () => history.push("/register"),
+    [history]
+  );
+  const onEmailHandler = useCallback(
+    (e) => setEmail(e.currentTarget.value),
+    []
+  );
 
-  const onPasswordHandler = (e) => setPassword(e.currentTarget.value);
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
-    // console.log('Email: ', Email);
-    // console.log('Password: ', Password);
-    let body = {
-      email: Email,
-      password: Password,
-    };
-    dispatch(loginUser(body)).then(({ payload: { success, message } }) => {
-      if (!success) return dispatch(catchError(message));
-      history.push("/");
-    });
-  };
+  const onPasswordHandler = useCallback(
+    (e) => setPassword(e.currentTarget.value),
+    []
+  );
+  const onSubmitHandler = useCallback(
+    (e) => {
+      e.preventDefault();
+      // console.log('Email: ', Email);
+      // console.log('Password: ', Password);
+      let body = {
+        email: Email,
+        password: Password,
+      };
+      dispatch(loginUser(body)).then(({ payload: { success, message } }) => {
+        if (!success) return dispatch(catchError(message));
+        history.push("/");
+      });
+    },
+    [Email, Password, dispatch, history]
+  );
   return (
     <LoginPresenter
       Email={Email}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,15 +14,18 @@ function HomeContainer() {
   const { subject, user, global } = useSelector((state) => state);
   const { token } = user;
   const [ModalContent, setModalContent] = useState(null);
-  const handleModal = (text, subject) => () => {
-    text === "add"
-      ? setModalContent(<AddSubjectModal />)
-      : setModalContent(<EditSubjectModal subject={subject} />);
-    if (!global.isOpen) {
-      dispatch(openModal());
-    }
-  };
-  const clickLogout = () => {
+  const handleModal = useCallback(
+    (text, subject) => () => {
+      text === "add"
+        ? setModalContent(<AddSubjectModal />)
+        : setModalContent(<EditSubjectModal subject={subject} />);
+      if (!global.isOpen) {
+        dispatch(openModal());
+      }
+    },
+    [dispatch, global]
+  );
+  const clickLogout = useCallback(() => {
     axios.get("/api/logout").then(({ data: { success, message } }) => {
       if (success) {
         history.push("/login");
@@ -30,7 +33,7 @@ function HomeContainer() {
         dispatch(catchError(message));
       }
     });
-  };
+  }, [dispatch, history]);
   useEffect(() => {
     if (token) {
       dispatch(getSubject({ token }));
