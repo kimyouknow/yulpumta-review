@@ -15,6 +15,9 @@ const DEL_SUBJECT = "/del-subject";
 const EDIT_SUBJECT = "/edit-subject";
 const RECORD = "/record-subject";
 
+// stat
+const GET_STAT = "/get-stat";
+
 const routes = {
   auth: AUTH,
   api: API,
@@ -27,5 +30,6 @@ const routes = {
   addSubject: ADD_SUBJECT,
   delSubject: DEL_SUBJECT,
   editSubject: EDIT_SUBJECT,
+  getStat: GET_STAT,
 };
 export default routes;

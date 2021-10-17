@@ -8,6 +8,7 @@ import {
 } from "../controller/subjectController";
 import { checkSubjectTitle, findSubejct, findUser } from "../middleware/find";
 import routes from "../routes";
+
 const subjectRouter = express.Router();
 
 subjectRouter.post(routes.record, findUser, findSubejct, recordActive);
