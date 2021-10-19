@@ -38,7 +38,7 @@ function HomeContainer() {
     if (token) {
       dispatch(getSubject({ token }));
     }
-  }, [user]);
+  }, []);
   console.log(subject);
   return (
     <HomePresenter

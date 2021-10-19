@@ -6,13 +6,16 @@ const daySchema = mongoose.Schema({
     required: true,
   },
   subject_id: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "Subject",
   },
   d_date: {
-    type: String,
+    type: Number,
     required: true,
+  },
+  d_total: {
+    type: Number,
   },
   lapses: [
     {

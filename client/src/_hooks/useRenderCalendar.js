@@ -69,7 +69,14 @@ const useRenderCalendar = () => {
   useEffect(() => {
     renderDate(year, month);
   }, [year, month]);
-  return { dates, year, month, setToday, prevMonth, nextMonth };
+  return {
+    dates,
+    year,
+    month,
+    setToday,
+    prevMonth,
+    nextMonth,
+  };
 };
 
 export default useRenderCalendar;

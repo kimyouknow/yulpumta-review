@@ -36,6 +36,12 @@ const DContent = styled.div`
   padding: 8px;
   position: relative;
   border: none;
+  background-color: ${(props) =>
+    props.isCur < 0
+      ? "grey"
+      : props.isCur < 10
+      ? "white"
+      : "rgba(238, 90, 36, 0.3)"};
   :nth-child(7n + 1) {
     color: #d13e3e;
   }
@@ -44,9 +50,10 @@ const DContent = styled.div`
   }
 `;
 
-function StatPresenter({ calendarData }) {
+function StatPresenter({ dateInfo, calendarData }) {
   const { dates, year, month, setToday, prevMonth, nextMonth } = calendarData;
   const weeks = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  console.log(dates);
   return (
     <>
       <div>
@@ -64,7 +71,12 @@ function StatPresenter({ calendarData }) {
       <DContainer>
         {dates &&
           dates.map((date) => (
-            <DContent key={date.date}>{date.date.getDate()}</DContent>
+            <DContent
+              key={date.date}
+              isCur={date.isCur ? dateInfo[date.date.getDate() - 1] : -1}
+            >
+              {date.date.getDate()}
+            </DContent>
           ))}
       </DContainer>
     </>

@@ -1,7 +1,9 @@
-## 해야할 것
+# 열품타 클론코딩 - review
 
-- modal 글로벌 하게 관리
+## 원본
 
-## 해결한 것
+https://github.com/yulpumta-clone-team/yulpumta-clone
 
--setInterval 함수형 컴포넌트시 전체 리랜더링되니까 update되는 숫자만 따로 관리
+열품타 클론코딩한 것을 리빌딩(rebuilding)하고 있습니다.
+
+## 왜 리빌딩 하게 되었는지

@@ -1,10 +1,11 @@
+import { setToday } from "../middleware/compareDate";
 import Day from "../models/Day";
 import Lapse from "../models/Lapse";
 import Subject from "../models/Subject";
 // findUser 미들웨어로 token으로 로그인한 유저의 정보를 db에서 찾는 과정을 정리
 // findSubject 미들웨어로 user 내에서 요청한 과목이 있는지 체크
 // checkSubjectTitle 미들웨어로 user 내에서 과목명이 겹치는 것이 있는지 체크
-const s_today = String(new Date()).substring(0, 15);
+const s_today = setToday();
 
 export const recordActive = async (req, res) => {
   const {
@@ -24,6 +25,7 @@ export const recordActive = async (req, res) => {
         user_id: user._id,
         subject_id: subject._id,
         d_date: s_today,
+        d_total: lapse,
       });
       await newDay.save();
       const newLapse = new Lapse({
@@ -50,6 +52,7 @@ export const recordActive = async (req, res) => {
         l_end_time: endTime,
         l_lapse: lapse,
       });
+      today.d_total = today.d_total + lapse;
       today.lapses.push(newLapse);
       await today.save();
       await newLapse.save();
@@ -68,25 +71,28 @@ export const recordActive = async (req, res) => {
 export const getSubject = async (req, res) => {
   // findUser
   const { user } = req;
-  const data = await Subject.find({ user_id: user._id }).populate({
-    path: "dates",
-    populate: {
-      path: "lapses",
-      model: "Lapse",
-    },
-  });
-  // subejct 각각의 요소들에 대해서 최신날짜 데이터 고르기 subject.dates[subject.dates.length - 1]
-  // 최신날짜에서 lpases를 추출하고 합을 todayTotalT에 넣고 반환
+  const data = await Subject.find({ user_id: user._id }).populate("dates");
+  // 과목이 하나도 없으면 빈 배열 반환
+  if (data.length === 0)
+    return res.json({
+      success: true,
+      message: "",
+      subjects: [],
+    });
+  // 과목 배열을 돌면서 dates가 있으면(기록이 한 번이라도 없으면 todayTotalT = 0)
+  // 기록이 있지만 오늘날짜가 없어도 todayTotalT = 0
+  // 오늘날짜가 있으면 해당 날짜의 d_total 반환
   const subjects = data.map((subject) => {
-    const { _id, title, user_id, color } = subject;
+    const { _id, title, user_id, color, dates } = subject;
     if (subject.dates.length === 0) {
       return { _id, title, user_id, color, todayTotalT: 0 };
     } else {
-      const todayLapses = subject.dates[subject.dates.length - 1].lapses;
-      const todayTotalT = todayLapses.reduce(
-        (acc, cur) => acc + cur.l_lapse,
-        0
-      );
+      const last = dates[dates.length - 1];
+      const latestDay = last.d_date;
+      let todayTotalT = 0;
+      if (latestDay === s_today) {
+        todayTotalT = last.d_total;
+      }
       return { _id, title, user_id, color, todayTotalT };
     }
   });

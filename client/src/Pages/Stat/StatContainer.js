@@ -10,15 +10,27 @@ function StatContainer() {
   const { token } = user;
   const { dates, year, month, setToday, prevMonth, nextMonth } =
     useRenderCalendar();
+  const [dateInfo, setDateInfo] = useState([]);
   const getData = async () => {
-    const request = await axios.post("/api/get-stat", { token });
-    console.log(request);
+    const {
+      data: { success, message, data },
+    } = await axios.post("/api/get-stat", {
+      token,
+      year,
+      month,
+    });
+    if (!success) {
+      console.log(message);
+    } else {
+      setDateInfo(data);
+    }
   };
   useEffect(() => {
     getData();
   }, [year, month]);
   return (
     <StatPresenter
+      dateInfo={dateInfo}
       calendarData={{ dates, year, month, setToday, prevMonth, nextMonth }}
     />
   );
