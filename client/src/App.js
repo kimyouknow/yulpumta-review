@@ -2,11 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Auth from "_hoc/auth";
 
-import Nav from "Components/nav";
-import Modal from "Pages/Modal/Modal";
-import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "_actions/global_actions";
-import ErrModal from "Components/ModalContent/ErrModal";
+import Nav from "Components/navRouter";
 
 const Active = lazy(() => import("Pages/Active"));
 const Home = lazy(() => import("Pages/Home"));

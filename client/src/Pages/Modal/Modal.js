@@ -42,12 +42,12 @@ export const Portal = ({ children }) => {
   return createPortal(children, rootElement);
 };
 
-function Modal({ onClose, children, overlayClose = true }) {
+function Modal({ children, overlayClose = true }) {
   const dispatch = useDispatch();
   // 바깥 영역을 클릭 시, 모달 창을 닫을 지 여부
   const onOverlayClick = () => {
     if (overlayClose) {
-      onClose();
+      handleCloseModal();
     }
   };
   const handleCloseModal = () => {

@@ -43,7 +43,7 @@ function HomePresenter({
         </ul>
       </div>
       {global.isOpen && (
-        <Modal onClose={handleModal}>
+        <Modal>
           {global.errMsg ? <ErrModal msg={global.errMsg} /> : ModalContent}
         </Modal>
       )}
