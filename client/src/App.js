@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Auth from "_hoc/auth";
 
-import Nav from "Components/navRouter";
+import Nav from "Components/NavRouter";
 
 const Active = lazy(() => import("Pages/Active"));
 const Home = lazy(() => import("Pages/Home"));

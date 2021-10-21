@@ -9,6 +9,10 @@ const lapseSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  subject_title: {
+    type: String,
+    required: true,
+  },
   l_date: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,

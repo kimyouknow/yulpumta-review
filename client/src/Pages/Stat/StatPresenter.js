@@ -1,5 +1,6 @@
+import InnerMenuWrapper from "Components/InnerMenus/InnerMenuWrapper";
+import StatInnerMenu from "Components/InnerMenus/StatInnerMenu";
 import React from "react";
-import useRenderCalendar from "_hooks/useRenderCalendar";
 import styled from "styled-components";
 
 const WContainer = styled.div`
@@ -50,10 +51,10 @@ const DContent = styled.div`
   }
 `;
 
-function StatPresenter({ dateInfo, calendarData }) {
+function StatPresenter({ calendar, calendarData }) {
+  const { timeInfo } = calendar;
   const { dates, year, month, setToday, prevMonth, nextMonth } = calendarData;
   const weeks = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-  console.log(dates);
   return (
     <>
       <div>
@@ -70,15 +71,19 @@ function StatPresenter({ dateInfo, calendarData }) {
       </WContainer>
       <DContainer>
         {dates &&
+          timeInfo &&
           dates.map((date) => (
             <DContent
               key={date.date}
-              isCur={date.isCur ? dateInfo[date.date.getDate() - 1] : -1}
+              isCur={date.isCur ? timeInfo[date.date.getDate() - 1] : -1}
             >
               {date.date.getDate()}
             </DContent>
           ))}
       </DContainer>
+      <InnerMenuWrapper>
+        <StatInnerMenu />
+      </InnerMenuWrapper>
     </>
   );
 }

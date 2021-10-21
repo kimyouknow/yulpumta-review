@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { closeModal } from "_actions/global_actions";
 
 const Overlay = styled.div`

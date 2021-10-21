@@ -31,6 +31,7 @@ export const recordActive = async (req, res) => {
       const newLapse = new Lapse({
         user_id: user._id,
         subject_id: subject._id,
+        subject_title: subject.title,
         l_date: newDay._id,
         l_start_time: startTime,
         l_end_time: endTime,
@@ -47,6 +48,7 @@ export const recordActive = async (req, res) => {
       const newLapse = new Lapse({
         user_id: user._id,
         subject_id: subject._id,
+        subject_title: subject.title,
         l_date: today._id,
         l_start_time: startTime,
         l_end_time: endTime,

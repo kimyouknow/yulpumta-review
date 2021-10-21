@@ -1,36 +1,32 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import StatPresenter from "./StatPresenter";
 import useRenderCalendar from "_hooks/useRenderCalendar";
+import { getTimeInfo } from "_actions/calendar_actions";
 
 function StatContainer() {
   const dispatch = useDispatch();
-  const { user, global } = useSelector((state) => state);
+  const user = useSelector((state) => state.user);
+  const calendar = useSelector((state) => state.calendar);
   const { token } = user;
   const { dates, year, month, setToday, prevMonth, nextMonth } =
     useRenderCalendar();
-  const [dateInfo, setDateInfo] = useState([]);
   const getData = async () => {
-    const {
-      data: { success, message, data },
-    } = await axios.post("/api/get-stat", {
+    const body = {
       token,
       year,
       month,
-    });
-    if (!success) {
-      console.log(message);
-    } else {
-      setDateInfo(data);
-    }
+    };
+    console.log("getData", month);
+    dispatch(getTimeInfo(body));
   };
   useEffect(() => {
     getData();
   }, [year, month]);
+  console.log("container");
   return (
     <StatPresenter
-      dateInfo={dateInfo}
+      calendar={calendar}
       calendarData={{ dates, year, month, setToday, prevMonth, nextMonth }}
     />
   );
