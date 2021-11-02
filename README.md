@@ -1,7 +1,9 @@
 # 열품타 클론코딩 - review
 
-https://github.com/kimyouknow/yulpum
-열품타 클론코딩한 것을 리빌딩(rebuilding)하고 있습니다.
+## 이전에 진행했던 열정품은 타이머 리빌딩
+* https://github.com/kimyouknow/yulpum
+
+
 
 ## 개선한 점
 
