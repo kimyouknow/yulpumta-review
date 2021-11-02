@@ -1,9 +1,6 @@
 # 열품타 클론코딩 - review
 
-## 원본
-
-https://github.com/yulpumta-clone-team/yulpumta-clone
-
+https://github.com/kimyouknow/yulpum
 열품타 클론코딩한 것을 리빌딩(rebuilding)하고 있습니다.
 
 ## 개선한 점
