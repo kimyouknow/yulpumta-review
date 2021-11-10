@@ -14,6 +14,7 @@ export const RECORD_SUBJECT = "recrodSubject";
 
 //Calendar
 export const GET_TOTAL_TIME = "GetTotalTime";
+export const SELECT_DAY = "selectDay";
 
 // Modal
 export const OPEN_MODAL = "open_modal";

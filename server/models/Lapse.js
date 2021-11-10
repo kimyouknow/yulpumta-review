@@ -18,6 +18,10 @@ const lapseSchema = mongoose.Schema({
     required: true,
     ref: "Day",
   },
+  date: {
+    type: Number,
+    required: true,
+  },
   l_start_time: {
     type: String,
   },

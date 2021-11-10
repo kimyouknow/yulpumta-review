@@ -17,6 +17,7 @@ const RECORD = "/record-subject";
 
 // stat
 const GET_STAT = "/get-stat";
+const GET_DAILY_LAPSE = "/get-dailyLapse";
 
 const routes = {
   auth: AUTH,
@@ -31,5 +32,6 @@ const routes = {
   delSubject: DEL_SUBJECT,
   editSubject: EDIT_SUBJECT,
   getStat: GET_STAT,
+  getDailyLapse: GET_DAILY_LAPSE,
 };
 export default routes;

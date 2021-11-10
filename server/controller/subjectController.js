@@ -5,9 +5,10 @@ import Subject from "../models/Subject";
 // findUser 미들웨어로 token으로 로그인한 유저의 정보를 db에서 찾는 과정을 정리
 // findSubject 미들웨어로 user 내에서 요청한 과목이 있는지 체크
 // checkSubjectTitle 미들웨어로 user 내에서 과목명이 겹치는 것이 있는지 체크
-const s_today = setToday();
+const s_today = Number(setToday());
 
 export const recordActive = async (req, res) => {
+  // console.log(s_today);
   const {
     user,
     subject,
@@ -33,6 +34,7 @@ export const recordActive = async (req, res) => {
         subject_id: subject._id,
         subject_title: subject.title,
         l_date: newDay._id,
+        date: s_today,
         l_start_time: startTime,
         l_end_time: endTime,
         l_lapse: lapse,
@@ -50,6 +52,7 @@ export const recordActive = async (req, res) => {
         subject_id: subject._id,
         subject_title: subject.title,
         l_date: today._id,
+        date: s_today,
         l_start_time: startTime,
         l_end_time: endTime,
         l_lapse: lapse,

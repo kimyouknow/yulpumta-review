@@ -39,7 +39,6 @@ function HomeContainer() {
       dispatch(getSubject({ token }));
     }
   }, []);
-  console.log(subject);
   return (
     <HomePresenter
       subject={subject}

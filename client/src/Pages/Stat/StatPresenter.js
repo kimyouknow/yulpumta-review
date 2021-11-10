@@ -2,6 +2,9 @@ import InnerMenuWrapper from "Components/InnerMenus/InnerMenuWrapper";
 import StatInnerMenu from "Components/InnerMenus/StatInnerMenu";
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
+import { weeks } from "global/global_variables";
+import { extractTargetDate } from "global/extractDate";
 
 const WContainer = styled.div`
   display: grid;
@@ -34,7 +37,6 @@ const DContent = styled.div`
   align-items: center;
   height: 120px;
   width: 100%;
-  padding: 8px;
   position: relative;
   border: none;
   background-color: ${(props) =>
@@ -51,10 +53,9 @@ const DContent = styled.div`
   }
 `;
 
-function StatPresenter({ calendar, calendarData }) {
-  const { timeInfo } = calendar;
+function StatPresenter({ calendar, calendarData, selectingDay }) {
+  const { dailyTotalTimes } = calendar;
   const { dates, year, month, setToday, prevMonth, nextMonth } = calendarData;
-  const weeks = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
   return (
     <>
       <div>
@@ -71,11 +72,17 @@ function StatPresenter({ calendar, calendarData }) {
       </WContainer>
       <DContainer>
         {dates &&
-          timeInfo &&
           dates.map((date) => (
             <DContent
               key={date.date}
-              isCur={date.isCur ? timeInfo[date.date.getDate() - 1] : -1}
+              onClick={(e) => selectingDay(date.date)}
+              isCur={
+                !date.isCur
+                  ? -1
+                  : dailyTotalTimes.length > 0
+                  ? extractTargetDate(dailyTotalTimes, date.date)
+                  : 0
+              }
             >
               {date.date.getDate()}
             </DContent>
@@ -87,5 +94,20 @@ function StatPresenter({ calendar, calendarData }) {
     </>
   );
 }
+
+StatPresenter.propTypes = {
+  calendar: PropTypes.shape({
+    dailyTotalTimes: PropTypes.array,
+  }),
+  calendarData: PropTypes.shape({
+    dates: PropTypes.array,
+    year: PropTypes.number,
+    month: PropTypes.number,
+    setToday: PropTypes.func,
+    prevMonth: PropTypes.func,
+    nextMonth: PropTypes.func,
+  }),
+  selectingDay: PropTypes.func,
+};
 
 export default StatPresenter;

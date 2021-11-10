@@ -1,15 +1,18 @@
-import { GET_TOTAL_TIME } from "_actions/types";
+import { GET_TOTAL_TIME, SELECT_DAY } from "_actions/types";
 
 const initState = {
-  timeInfo: {},
-  lapseInfo: {},
+  dailyTotalTimes: [],
+  selectedDay: new Date(),
+  dailyLapses: [],
 };
 
 const calendarReducer = (state = initState, action) => {
   switch (action.type) {
     case GET_TOTAL_TIME:
-      const { lapseData, statData } = action.payload;
-      return { timeInfo: statData, lapseInfo: lapseData };
+      return { ...state, dailyTotalTimes: action.payload };
+    case SELECT_DAY:
+      const { Y, M, D, dailyLapses } = action.payload;
+      return { ...state, selectedDay: new Date(Y, M, D), dailyLapses };
     default:
       return state;
   }
