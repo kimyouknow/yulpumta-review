@@ -19,7 +19,7 @@ function StatContainer() {
       year,
       month,
     };
-    console.log("getData", body);
+    console.log("getdata", year, month);
     dispatch(getTimeInfo(body));
     selectingDay(selectedDay);
   }, [year, month, dispatch, token]);
@@ -32,7 +32,6 @@ function StatContainer() {
         M,
         D,
       };
-      console.log(body);
       dispatch(selectDay(body));
     },
     [token]

@@ -54,7 +54,7 @@ const DContent = styled.div`
 `;
 
 function StatPresenter({ calendar, calendarData, selectingDay }) {
-  const { dailyTotalTimes } = calendar;
+  const { dailyTotalTimes, dailyLapses } = calendar;
   const { dates, year, month, setToday, prevMonth, nextMonth } = calendarData;
   return (
     <>
@@ -89,7 +89,10 @@ function StatPresenter({ calendar, calendarData, selectingDay }) {
           ))}
       </DContainer>
       <InnerMenuWrapper>
-        <StatInnerMenu />
+        <StatInnerMenu
+          dailyTotalTimes={dailyTotalTimes}
+          dailyLapses={dailyLapses}
+        />
       </InnerMenuWrapper>
     </>
   );

@@ -6,25 +6,25 @@ export const getStat = async (req, res) => {
     user,
     body: { year, month },
   } = req;
-  const Y = year;
-  const M = month < 10 ? "0" + month : month;
-  const data = await Day.find({
+  const Y = String(year);
+  const M = String(month < 10 ? "0" + month : month);
+  const rawMonthData = await Day.find({
     user_id: user._id,
     d_date: { $gt: Number(Y + M + "00"), $lt: Number(Y + M + "40") },
   });
   // 과목이 하나도 없으면 빈 배열 반환
-  if (data.length === 0)
+  if (rawMonthData.length === 0)
     return res.json({
       success: true,
       message: "",
       dailyTotalTimes: [],
     });
-  // console.log(data);
+  // console.log(rawMonthData);
   // 같은 d_date의 d_total을 더하기, 길이가 31인 배열을 만들어서 idx을 날짜 -1로 맞추기
   // 해당 날짜 idx에 d_total을 더하기
   const dailyTotalTimes = Array(31).fill(0);
   try {
-    data.map((element) => {
+    rawMonthData.map((element) => {
       const { d_date, d_total } = element;
       // idxDate가 dailyTotalTimes의 index번호가 됨.
       const idxDate = d_date - Number(Y + M + "00") - 1;
