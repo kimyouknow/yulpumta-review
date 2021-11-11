@@ -1,38 +1,38 @@
 import axios from "axios";
 import { catchError } from "./global_actions";
 import {
-  RECORD_SUBJECT,
-  ADD_SUBEJCT,
-  DEL_SUBEJCT,
-  EDIT_SUBEJCT,
-  GET_SUBJECT,
-  ACTIVE_SUBJECT,
+  SUBJECT_ACTIVE,
+  SUBJECT_ADD,
+  SUBJECT_DEL,
+  SUBJECT_EDIT,
+  SUBJECT_GET,
+  SUBJECT_RECORD,
 } from "./types";
 
 function r_getSubject(data) {
   return {
-    type: GET_SUBJECT,
+    type: SUBJECT_GET,
     payload: data,
   };
 }
 
 function r_addSubejct(data) {
   return {
-    type: ADD_SUBEJCT,
+    type: SUBJECT_ADD,
     payload: data,
   };
 }
 
 function r_editSubejct(data) {
   return {
-    type: EDIT_SUBEJCT,
+    type: SUBJECT_EDIT,
     payload: data,
   };
 }
 
 function r_deleteSubejct(data) {
   return {
-    type: DEL_SUBEJCT,
+    type: SUBJECT_DEL,
     payload: data,
   };
 }
@@ -40,14 +40,14 @@ function r_deleteSubejct(data) {
 export async function recordSubejct(dataTosubmit) {
   const request = await axios.post("/api/record-subject", dataTosubmit);
   return {
-    type: RECORD_SUBJECT,
+    type: SUBJECT_RECORD,
     payload: request,
   };
 }
 
 export function activeSubject(subejct) {
   return {
-    type: ACTIVE_SUBJECT,
+    type: SUBJECT_ACTIVE,
     payload: subejct,
   };
 }

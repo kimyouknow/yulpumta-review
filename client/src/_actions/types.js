@@ -5,16 +5,23 @@ export const AUTH_USER = "auth_user";
 export const GET_RANK = "getRank";
 
 // Subject
-export const GET_SUBJECT = "getSubject";
-export const ADD_SUBEJCT = "addSubject";
-export const EDIT_SUBEJCT = "editSubject";
-export const DEL_SUBEJCT = "delSubject";
-export const ACTIVE_SUBJECT = "activeSubject";
-export const RECORD_SUBJECT = "recrodSubject";
+export const SUBJECT_GET = "getSubject";
+export const SUBJECT_ADD = "addSubject";
+export const SUBJECT_EDIT = "editSubject";
+export const SUBJECT_DEL = "delSubject";
+export const SUBJECT_ACTIVE = "activeSubject";
+export const SUBJECT_RECORD = "recrodSubject";
 
-//Calendar
-export const GET_TOTAL_TIME = "GetTotalTime";
-export const SELECT_DAY = "selectDay";
+//Calendar - stat
+export const GET_TOTAL_TIME = "getTotalTime";
+export const STAT_SELECT_DAY = "statSelectDay";
+
+//Calendar - planner
+export const PLAN_SELECT_DAY = "plannerSelectDay";
+export const PLAN_ADD = "addPlan";
+export const PLAN_EDIT = "editPlan";
+export const PLAN_CHECK = "checkPlan";
+export const PLAN_DELETE = "deletePlan";
 
 // Modal
 export const OPEN_MODAL = "open_modal";

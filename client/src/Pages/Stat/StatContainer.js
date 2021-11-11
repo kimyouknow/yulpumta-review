@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import StatPresenter from "./StatPresenter";
 import useRenderCalendar from "_hooks/useRenderCalendar";
-import { getTimeInfo, selectDay } from "_actions/calendar_actions";
+import { getTimeInfo, statSelectDay } from "_actions/calendar_actions";
 import { extractDate } from "global/extractDate";
 
 function StatContainer() {
@@ -10,7 +10,7 @@ function StatContainer() {
   const user = useSelector((state) => state.user);
   const calendar = useSelector((state) => state.calendar);
   const { token } = user;
-  const { selectedDay } = calendar;
+  const { statSelectedDate } = calendar;
   const { dates, year, month, setToday, prevMonth, nextMonth } =
     useRenderCalendar();
   const getData = useCallback(async () => {
@@ -21,7 +21,7 @@ function StatContainer() {
     };
     console.log("getdata", year, month);
     dispatch(getTimeInfo(body));
-    selectingDay(selectedDay);
+    selectingDay(statSelectedDate);
   }, [year, month, dispatch, token]);
   const selectingDay = useCallback(
     (date) => {
@@ -32,7 +32,7 @@ function StatContainer() {
         M,
         D,
       };
-      dispatch(selectDay(body));
+      dispatch(statSelectDay(body));
     },
     [token]
   );

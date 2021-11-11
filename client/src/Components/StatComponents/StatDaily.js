@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 function StatDaily() {
-  const { dailyTotalTimes, selectedDay, dailyLapses } = useSelector(
+  const { dailyTotalTimes, statSelectedDate, dailyLapses } = useSelector(
     (state) => state.calendar
   );
   const MaxLapse = dailyLapses.reduce(
@@ -17,7 +17,7 @@ function StatDaily() {
     <>
       <div>
         <h4>총 공부시간</h4>
-        <span>{extractTargetDate(dailyTotalTimes, selectedDay)}</span>
+        <span>{extractTargetDate(dailyTotalTimes, statSelectedDate)}</span>
       </div>
       <div>
         <h4>최대 집중 시간</h4>

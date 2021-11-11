@@ -45,7 +45,7 @@ const DContent = styled.div`
   }
 `;
 
-function PlannerPresenter({ calendarData }) {
+function PlannerPresenter({ calendarData, handleAddSubject, selectingDay }) {
   const { dates, year, month, setToday, prevMonth, nextMonth } = calendarData;
   return (
     <>
@@ -64,11 +64,18 @@ function PlannerPresenter({ calendarData }) {
       <DContainer>
         {dates &&
           dates.map((date) => (
-            <DContent key={date.date} isCur={date.isCur}>
+            <DContent
+              key={date.date}
+              isCur={date.isCur}
+              onClick={(e) => selectingDay(date.date)}
+            >
               {date.date.getDate()}
             </DContent>
           ))}
       </DContainer>
+      <div>
+        <button onClick={handleAddSubject}>+</button>
+      </div>
     </>
   );
 }
@@ -82,6 +89,8 @@ PlannerPresenter.propTypes = {
     prevMonth: PropTypes.func,
     nextMonth: PropTypes.func,
   }),
+  handleAddSubject: PropTypes.func,
+  selectingDay: PropTypes.func,
 };
 
 export default PlannerPresenter;

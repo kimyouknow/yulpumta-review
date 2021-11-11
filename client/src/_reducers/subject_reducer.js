@@ -1,10 +1,10 @@
 import {
-  ACTIVE_SUBJECT,
-  ADD_SUBEJCT,
-  DEL_SUBEJCT,
-  EDIT_SUBEJCT,
-  GET_SUBJECT,
-  RECORD_SUBJECT,
+  SUBJECT_ACTIVE,
+  SUBJECT_ADD,
+  SUBJECT_DEL,
+  SUBJECT_EDIT,
+  SUBJECT_GET,
+  SUBJECT_RECORD,
 } from "_actions/types";
 
 const initState = {
@@ -14,17 +14,17 @@ const initState = {
 
 const subjectReducer = (state = initState, action) => {
   switch (action.type) {
-    case GET_SUBJECT:
+    case SUBJECT_GET:
       return {
         ...state,
         subjects: action.payload.subjects,
       };
-    case ADD_SUBEJCT:
+    case SUBJECT_ADD:
       return {
         ...state,
         subjects: [...state.subjects, { ...action.payload, todayTotalT: 0 }],
       };
-    case EDIT_SUBEJCT:
+    case SUBJECT_EDIT:
       const target = action.payload;
       return {
         ...state,
@@ -32,19 +32,19 @@ const subjectReducer = (state = initState, action) => {
           el._id === target._id ? (el = { ...el, title: target.title }) : el
         ),
       };
-    case DEL_SUBEJCT:
+    case SUBJECT_DEL:
       return {
         ...state,
         subjects: state.subjects.filter(
           (el) => el._id !== action.payload.subject_id
         ),
       };
-    case ACTIVE_SUBJECT:
+    case SUBJECT_ACTIVE:
       return {
         ...state,
         activeS: action.payload,
       };
-    case RECORD_SUBJECT:
+    case SUBJECT_RECORD:
       return state;
     default:
       return state;

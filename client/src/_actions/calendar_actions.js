@@ -1,6 +1,6 @@
 import axios from "axios";
 import { catchError } from "./global_actions";
-import { GET_TOTAL_TIME, SELECT_DAY } from "./types";
+import { GET_TOTAL_TIME, PLAN_SELECT_DAY, STAT_SELECT_DAY } from "./types";
 
 function r_getTimeInfo(data) {
   return {
@@ -11,8 +11,15 @@ function r_getTimeInfo(data) {
 
 function r_selectDay(data) {
   return {
-    type: SELECT_DAY,
+    type: STAT_SELECT_DAY,
     payload: data,
+  };
+}
+
+export function planSelectDay(dataTosubmit) {
+  return {
+    type: PLAN_SELECT_DAY,
+    payload: dataTosubmit,
   };
 }
 
@@ -26,7 +33,7 @@ export function getTimeInfo(dataTosubmit) {
       });
   };
 }
-export function selectDay(dataTosubmit) {
+export function statSelectDay(dataTosubmit) {
   return (dispatch) => {
     axios
       .post("/api/get-dailyLapse", dataTosubmit)

@@ -21,20 +21,20 @@ function AddSubjectModal() {
     },
     [user, title, color, dispatch]
   );
-  const onChangeColor = useCallback((e) => setTitle(e.target.value), []);
-  const onChangeTitle = useCallback((e) => setColor(e.target.value), []);
+  const onChangeTitle = useCallback((e) => setTitle(e.target.value), []);
+  const onChangeColor = useCallback((e) => setColor(e.target.value), []);
   return (
     <form onSubmit={handleSubmit}>
       <input
         type="text"
         value={title}
-        onChange={onChangeColor}
+        onChange={onChangeTitle}
         placeholder="e.g. 수학, 영어, 과학.."
       />
       <input
         type="text"
         value={color}
-        onChange={onChangeTitle}
+        onChange={onChangeColor}
         placeholder="색깔"
       />
       <button type="submit">추가</button>

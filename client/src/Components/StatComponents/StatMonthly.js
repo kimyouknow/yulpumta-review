@@ -4,11 +4,11 @@ import { useSelector } from "react-redux";
 import { VictoryBar, VictoryChart, VictoryAxis } from "victory";
 
 function StatMonthly() {
-  const { dailyTotalTimes, selectedDay } = useSelector(
+  const { dailyTotalTimes, statSelectedDate } = useSelector(
     (state) => state.calendar
   );
-  const activeYear = selectedDay.getFullYear();
-  const activeMonth = selectedDay.getMonth() + 1;
+  const activeYear = statSelectedDate.getFullYear();
+  const activeMonth = statSelectedDate.getMonth() + 1;
   const barData = [];
   for (let i = 0; i < dailyTotalTimes.length; i++) {
     barData.push({

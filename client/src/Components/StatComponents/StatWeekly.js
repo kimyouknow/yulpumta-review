@@ -4,12 +4,12 @@ import { VictoryBar, VictoryChart, VictoryAxis } from "victory";
 import { changeTimeFormat } from "global/extractDate";
 
 function StatWeekly() {
-  const { dailyTotalTimes, selectedDay } = useSelector(
+  const { dailyTotalTimes, statSelectedDate } = useSelector(
     (state) => state.calendar
   );
-  const activeMonth = selectedDay.getMonth();
-  const activeDate = selectedDay.getDate();
-  const activeDay = selectedDay.getDay();
+  const activeMonth = statSelectedDate.getMonth();
+  const activeDate = statSelectedDate.getDate();
+  const activeDay = statSelectedDate.getDay();
   const barData = [];
   const barXaxis = [];
   for (let i = 0; i < 7; i++) {
