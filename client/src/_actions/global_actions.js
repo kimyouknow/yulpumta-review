@@ -1,8 +1,9 @@
 import { CATCH_ERR, CLOSE_MODAL, OPEN_MODAL, RESET_ERR } from "./types";
 
-export const openModal = () => {
+export const openModal = (content) => {
   return {
     type: OPEN_MODAL,
+    payload: content,
   };
 };
 

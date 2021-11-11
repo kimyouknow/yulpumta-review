@@ -10,6 +10,7 @@ function EditSubjectModal({ subject }) {
   const { _id, color: pre_color, title: pre_title } = subject;
   const [title, setTitle] = useState(pre_title);
   const [color, setColor] = useState(pre_color);
+  console.log(subject);
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault();
@@ -32,18 +33,20 @@ function EditSubjectModal({ subject }) {
     await dispatch(deleteSubject(body));
     dispatch(closeModal());
   }, [user, _id, dispatch]);
+  const onChangeColor = useCallback((e) => setTitle(e.target.value), []);
+  const onChangeTitle = useCallback((e) => setColor(e.target.value), []);
   return (
     <form onSubmit={handleSubmit}>
       <input
         type="text"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={onChangeColor}
         placeholder="과목"
       />
       <input
         type="text"
         value={color}
-        onChange={(e) => setColor(e.target.value)}
+        onChange={onChangeTitle}
         placeholder="색깔"
       />
       <button type="submit">수정</button>

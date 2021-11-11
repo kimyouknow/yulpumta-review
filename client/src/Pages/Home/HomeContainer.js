@@ -11,20 +11,15 @@ import EditSubjectModal from "Components/ModalContent/EditSubejctModal";
 function HomeContainer() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { subject, user, global } = useSelector((state) => state);
+  const { user } = useSelector((state) => state);
+  const { subject } = useSelector((state) => state);
   const { token } = user;
-  const [ModalContent, setModalContent] = useState(null);
-  const handleModal = useCallback(
-    (text, subject) => () => {
-      text === "add"
-        ? setModalContent(<AddSubjectModal />)
-        : setModalContent(<EditSubjectModal subject={subject} />);
-      if (!global.isOpen) {
-        dispatch(openModal());
-      }
-    },
-    [dispatch, global]
-  );
+  const handleEditSubject = useCallback((targetSubject) => {
+    dispatch(openModal(<EditSubjectModal subject={targetSubject} />));
+  }, []);
+  const handleAddSubject = useCallback(() => {
+    dispatch(openModal(<AddSubjectModal />));
+  }, []);
   const clickLogout = useCallback(() => {
     axios.get("/api/logout").then(({ data: { success, message } }) => {
       if (success) {
@@ -42,10 +37,9 @@ function HomeContainer() {
   return (
     <HomePresenter
       subject={subject}
-      global={global}
-      ModalContent={ModalContent}
       clickLogout={clickLogout}
-      handleModal={handleModal}
+      handleEditSubject={handleEditSubject}
+      handleAddSubject={handleAddSubject}
     />
   );
 }

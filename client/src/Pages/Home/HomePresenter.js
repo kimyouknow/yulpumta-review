@@ -1,15 +1,12 @@
-import ErrModal from "Components/ModalContent/ErrModal";
-import Modal from "Pages/Modal/Modal";
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 function HomePresenter({
   subject,
-  global,
-  ModalContent,
   clickLogout,
-  handleModal,
+  handleEditSubject,
+  handleAddSubject,
 }) {
   const { subjects, error } = subject;
   return (
@@ -22,7 +19,7 @@ function HomePresenter({
         <h1>Subjects</h1>
         <ul>
           <li>
-            <button onClick={handleModal("add")}>+</button>
+            <button onClick={() => handleAddSubject()}>+</button>
             <span>과목추가</span>
           </li>
           {!subjects || error ? (
@@ -36,17 +33,12 @@ function HomePresenter({
                 <span>{subject.title}</span>
                 <span> | </span>
                 <span>{subject.todayTotalT}</span>
-                <button onClick={handleModal("edit", subject)}>수정</button>
+                <button onClick={() => handleEditSubject(subject)}>수정</button>
               </li>
             ))
           )}
         </ul>
       </div>
-      {global.isOpen && (
-        <Modal>
-          {global.errMsg ? <ErrModal msg={global.errMsg} /> : ModalContent}
-        </Modal>
-      )}
     </div>
   );
 }
@@ -58,13 +50,9 @@ HomePresenter.propTypes = {
     user_id: PropTypes.string,
     lapses: PropTypes.array,
   }),
-  global: PropTypes.shape({
-    isOpen: PropTypes.bool,
-    errMsg: PropTypes.string,
-  }),
-  ModalContent: PropTypes.element,
   clickLogout: PropTypes.func,
-  handleModal: PropTypes.func,
+  handleEditSubject: PropTypes.func,
+  handleAddSubject: PropTypes.func,
 };
 
 export default HomePresenter;

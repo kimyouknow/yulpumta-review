@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import CounterWrapper from "Components/CounterWrapper";
-import Modal from "Pages/Modal/Modal";
 import ErrModal from "Components/ModalContent/ErrModal";
+import Modal from "Pages/Modal";
 
 function ActivePresenter({ global, stopHandler, handleModal, subject }) {
   const { title, todayTotalT } = subject;

@@ -20,7 +20,6 @@ const subjectReducer = (state = initState, action) => {
         subjects: action.payload.subjects,
       };
     case ADD_SUBEJCT:
-      console.log(action.payload);
       return {
         ...state,
         subjects: [...state.subjects, { ...action.payload, todayTotalT: 0 }],
@@ -41,7 +40,6 @@ const subjectReducer = (state = initState, action) => {
         ),
       };
     case ACTIVE_SUBJECT:
-      console.log(action.payload);
       return {
         ...state,
         activeS: action.payload,
