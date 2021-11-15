@@ -1,15 +1,10 @@
-import { displayClock, extractTargetDate } from "global/extractDate";
-import React from "react";
-import { useSelector } from "react-redux";
+import { displayClock, extractTargetDate } from 'global/extractDate';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 function StatDaily() {
-  const { dailyTotalTimes, statSelectedDate, dailyLapses } = useSelector(
-    (state) => state.calendar
-  );
-  const MaxLapse = dailyLapses.reduce(
-    (acc, cur) => (acc > cur.l_lapse ? acc : cur.l_lapse),
-    dailyLapses[0]
-  );
+  const { dailyTotalTimes, statSelectedDate, dailyLapses } = useSelector((state) => state.calendar);
+  const MaxLapse = dailyLapses.reduce((acc, cur) => (acc > cur.l_lapse ? acc : cur.l_lapse), dailyLapses[0]);
   const startTime = dailyLapses[0].l_start_time;
   const filtered = dailyLapses.filter((ele) => ele.l_lapse !== 0);
   const endTime = filtered[filtered.length - 1].l_end_time;

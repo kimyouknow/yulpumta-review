@@ -1,3 +1,3 @@
-import RankContainer from "./RankContainer";
+import RankContainer from './RankContainer';
 
 export default RankContainer;

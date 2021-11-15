@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const saltRounds = 10;
 
@@ -32,14 +32,14 @@ const userSchema = mongoose.Schema({
   subjects: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Subject",
+      ref: 'Subject',
     },
   ],
 });
 
-userSchema.pre("save", function (next) {
+userSchema.pre('save', function (next) {
   let user = this;
-  if (user.isModified("password")) {
+  if (user.isModified('password')) {
     bcrypt.genSalt(saltRounds, function (err, salt) {
       if (err) return next(err);
       bcrypt.hash(user.password, salt, function (err, hash) {
@@ -62,7 +62,7 @@ userSchema.methods.comparePassword = function (plainPassword, cb) {
 
 userSchema.methods.generateToken = function (cb) {
   let user = this;
-  let token = jwt.sign(user._id.toHexString(), "secretToken");
+  let token = jwt.sign(user._id.toHexString(), 'secretToken');
 
   user.token = token;
   user.save(function (err, user) {
@@ -75,7 +75,7 @@ userSchema.statics.findByToken = async function (token) {
   let user = this;
   let found = null;
   try {
-    await jwt.verify(token, "secretToken", async function (err, decoded) {
+    await jwt.verify(token, 'secretToken', async function (err, decoded) {
       if (err) {
         err;
       }
@@ -89,5 +89,5 @@ userSchema.statics.findByToken = async function (token) {
   return found;
 };
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 export default User;

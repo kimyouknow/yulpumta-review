@@ -1,2 +1,2 @@
-import ModalCotainer from "./ModalCotainer";
+import ModalCotainer from './ModalCotainer';
 export default ModalCotainer;

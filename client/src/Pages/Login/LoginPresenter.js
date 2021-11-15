@@ -1,27 +1,17 @@
-import React from "react";
+import React from 'react';
 
-function LoginPresenter({
-  Email,
-  Password,
-  onEmailHandler,
-  onPasswordHandler,
-  onSubmitHandler,
-  moveToRegister,
-}) {
+function LoginPresenter({ Email, Password, onEmailHandler, onPasswordHandler, onSubmitHandler, moveToRegister }) {
   return (
     <div
       style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        height: "100vh",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100vh',
       }}
     >
-      <form
-        style={{ display: "flex", flexDirection: "column" }}
-        onSubmit={onSubmitHandler}
-      >
+      <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={onSubmitHandler}>
         <label>Email</label>
         <input type="email" value={Email} onChange={onEmailHandler} />
         <label>Password</label>

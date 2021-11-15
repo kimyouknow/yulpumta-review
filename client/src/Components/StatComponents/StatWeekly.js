@@ -1,12 +1,10 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { VictoryBar, VictoryChart, VictoryAxis } from "victory";
-import { changeTimeFormat } from "global/extractDate";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { VictoryBar, VictoryChart, VictoryAxis } from 'victory';
+import { changeTimeFormat } from 'global/extractDate';
 
 function StatWeekly() {
-  const { dailyTotalTimes, statSelectedDate } = useSelector(
-    (state) => state.calendar
-  );
+  const { dailyTotalTimes, statSelectedDate } = useSelector((state) => state.calendar);
   const activeMonth = statSelectedDate.getMonth();
   const activeDate = statSelectedDate.getDate();
   const activeDay = statSelectedDate.getDay();
@@ -22,15 +20,11 @@ function StatWeekly() {
       });
     }
   }
-  const weekTotalTime = barData.reduce(
-    (acc, cur) => acc + cur.time,
-    barData[0].time
-  );
+  const weekTotalTime = barData.reduce((acc, cur) => acc + cur.time, barData[0].time);
   return (
     <>
       <h2>
-        {activeMonth + 1}월 {barXaxis[0]}일 ~ {activeMonth + 1}월{" "}
-        {barXaxis[barXaxis.length - 1]}일
+        {activeMonth + 1}월 {barXaxis[0]}일 ~ {activeMonth + 1}월 {barXaxis[barXaxis.length - 1]}일
       </h2>
       <div>
         <h4>총 공부시간</h4>
@@ -42,17 +36,8 @@ function StatWeekly() {
       </div>
       <VictoryChart domainPadding={20}>
         <VictoryAxis tickValues={[...barXaxis]} tickFormat={(t) => `${t}일`} />
-        <VictoryAxis
-          dependentAxis
-          domain={[0, 120]}
-          tickFormat={(t) => `${t}분`}
-        />
-        <VictoryBar
-          data={barData}
-          x="date"
-          y="time"
-          style={{ data: { fill: "tomato", width: 4 } }}
-        />
+        <VictoryAxis dependentAxis domain={[0, 120]} tickFormat={(t) => `${t}분`} />
+        <VictoryBar data={barData} x="date" y="time" style={{ data: { fill: 'tomato', width: 4 } }} />
       </VictoryChart>
     </>
   );

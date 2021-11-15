@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const lapseSchema = mongoose.Schema({
   user_id: {
@@ -16,7 +16,7 @@ const lapseSchema = mongoose.Schema({
   l_date: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "Day",
+    ref: 'Day',
   },
   date: {
     type: Number,
@@ -34,5 +34,5 @@ const lapseSchema = mongoose.Schema({
   },
 });
 
-const Lapse = mongoose.model("Lapse", lapseSchema);
+const Lapse = mongoose.model('Lapse', lapseSchema);
 export default Lapse;

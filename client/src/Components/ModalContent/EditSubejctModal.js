@@ -1,8 +1,8 @@
-import React, { useCallback, useState } from "react";
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteSubject, editSubject } from "_actions/subject_actions";
-import { closeModal } from "_actions/global_actions";
+import React, { useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteSubject, editSubject } from '_actions/subject_actions';
+import { closeModal } from '_actions/global_actions';
 
 function EditSubjectModal({ subject }) {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ function EditSubjectModal({ subject }) {
       await dispatch(editSubject(body));
       dispatch(closeModal());
     },
-    [user, _id, title, color, dispatch]
+    [user, _id, title, color, dispatch],
   );
   const handleDel = useCallback(async () => {
     const body = {
@@ -37,18 +37,8 @@ function EditSubjectModal({ subject }) {
   const onChangeColor = useCallback((e) => setColor(e.target.value), []);
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={title}
-        onChange={onChangeTitle}
-        placeholder="과목"
-      />
-      <input
-        type="text"
-        value={color}
-        onChange={onChangeColor}
-        placeholder="색깔"
-      />
+      <input type="text" value={title} onChange={onChangeTitle} placeholder="과목" />
+      <input type="text" value={color} onChange={onChangeColor} placeholder="색깔" />
       <button type="submit">수정</button>
       <span onClick={handleDel}>삭제</span>
     </form>

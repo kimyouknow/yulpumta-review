@@ -1,11 +1,10 @@
-import { AUTH_USER, LOGIN_USER, REGISTER_USER } from "_actions/types";
+import { AUTH_USER, LOGIN_USER, REGISTER_USER } from '_actions/types';
 
-const getCookieValue = (name) =>
-  document.cookie.match("(^|;)\\s*" + name + "\\s*=\\s*([^;]+)")?.pop() || "";
+const getCookieValue = (name) => document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || '';
 
 const initState = {
-  name: "",
-  token: getCookieValue("user_auth"),
+  name: '',
+  token: getCookieValue('user_auth'),
 };
 
 const userReducer = (state = initState, action) => {

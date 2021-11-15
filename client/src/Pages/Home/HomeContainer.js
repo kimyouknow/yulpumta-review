@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useState } from "react";
-import axios from "axios";
-import { useHistory } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
-import HomePresenter from "./HomePresenter";
-import { getSubject } from "_actions/subject_actions";
-import { catchError, openModal } from "_actions/global_actions";
-import AddSubjectModal from "Components/ModalContent/AddSubjectModal";
-import EditSubjectModal from "Components/ModalContent/EditSubejctModal";
+import React, { useCallback, useEffect, useState } from 'react';
+import axios from 'axios';
+import { useHistory } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux';
+import HomePresenter from './HomePresenter';
+import { getSubject } from '_actions/subject_actions';
+import { catchError, openModal } from '_actions/global_actions';
+import AddSubjectModal from 'Components/ModalContent/AddSubjectModal';
+import EditSubjectModal from 'Components/ModalContent/EditSubejctModal';
 
 function HomeContainer() {
   const history = useHistory();
@@ -21,9 +21,9 @@ function HomeContainer() {
     dispatch(openModal(<AddSubjectModal />));
   }, []);
   const clickLogout = useCallback(() => {
-    axios.get("/api/logout").then(({ data: { success, message } }) => {
+    axios.get('/api/logout').then(({ data: { success, message } }) => {
       if (success) {
-        history.push("/login");
+        history.push('/login');
       } else {
         dispatch(catchError(message));
       }

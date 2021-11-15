@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import PropTypes from "prop-types";
-import { weeks } from "global/global_variables";
+import React from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { weeks } from 'global/global_variables';
 
 const WContainer = styled.div`
   display: grid;
@@ -36,7 +36,7 @@ const DContent = styled.div`
   width: 100%;
   position: relative;
   border: none;
-  background-color: ${(props) => (props.isCur ? "wihte" : "grey")};
+  background-color: ${(props) => (props.isCur ? 'wihte' : 'grey')};
   :nth-child(7n + 1) {
     color: #d13e3e;
   }
@@ -64,11 +64,7 @@ function PlannerPresenter({ calendarData, handleAddSubject, selectingDay }) {
       <DContainer>
         {dates &&
           dates.map((date) => (
-            <DContent
-              key={date.date}
-              isCur={date.isCur}
-              onClick={(e) => selectingDay(date.date)}
-            >
+            <DContent key={date.date} isCur={date.isCur} onClick={(e) => selectingDay(date.date)}>
               {date.date.getDate()}
             </DContent>
           ))}

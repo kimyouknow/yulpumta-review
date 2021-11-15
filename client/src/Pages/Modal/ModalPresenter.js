@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import ModalPotal from "Components/ModalContent/ModalPotal";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import ModalPotal from 'Components/ModalContent/ModalPotal';
 
 const Overlay = styled.div`
   position: fixed;

@@ -1,11 +1,4 @@
-import {
-  SUBJECT_ACTIVE,
-  SUBJECT_ADD,
-  SUBJECT_DEL,
-  SUBJECT_EDIT,
-  SUBJECT_GET,
-  SUBJECT_RECORD,
-} from "_actions/types";
+import { SUBJECT_ACTIVE, SUBJECT_ADD, SUBJECT_DEL, SUBJECT_EDIT, SUBJECT_GET, SUBJECT_RECORD } from '_actions/types';
 
 const initState = {
   subjects: [],
@@ -28,16 +21,12 @@ const subjectReducer = (state = initState, action) => {
       const target = action.payload;
       return {
         ...state,
-        subjects: state.subjects.map((el) =>
-          el._id === target._id ? (el = { ...el, title: target.title }) : el
-        ),
+        subjects: state.subjects.map((el) => (el._id === target._id ? (el = { ...el, title: target.title }) : el)),
       };
     case SUBJECT_DEL:
       return {
         ...state,
-        subjects: state.subjects.filter(
-          (el) => el._id !== action.payload.subject_id
-        ),
+        subjects: state.subjects.filter((el) => el._id !== action.payload.subject_id),
       };
     case SUBJECT_ACTIVE:
       return {

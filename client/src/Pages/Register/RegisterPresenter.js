@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 function RegisterPresenter({
   Email,
@@ -15,17 +15,14 @@ function RegisterPresenter({
   return (
     <div
       style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        height: "100vh",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100vh',
       }}
     >
-      <form
-        style={{ display: "flex", flexDirection: "column" }}
-        onSubmit={onSubmitHandler}
-      >
+      <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={onSubmitHandler}>
         <label>Email</label>
         <input type="email" value={Email} onChange={onEmailHandler} />
         <label>Name</label>
@@ -33,11 +30,7 @@ function RegisterPresenter({
         <label>Password</label>
         <input type="password" value={Password} onChange={onPasswordHandler} />
         <label>VerifyPassword</label>
-        <input
-          type="password"
-          value={VerifyPassword}
-          onChange={onVerifyPasswordHandler}
-        />
+        <input type="password" value={VerifyPassword} onChange={onVerifyPasswordHandler} />
         <br />
         <button type="submit">Register</button>
         <button onClick={() => moveToLogin()}>Login</button>

@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 
 function useCounter() {
   const [count, setCount] = useState(0);
@@ -28,7 +28,7 @@ function CounterWrapper({ totalTime, children }) {
     return () => stop();
   }, []);
   return (
-    <div className={"wrapper"}>
+    <div className={'wrapper'}>
       <div>{count + totalTime}</div>
       <div>{children}</div>
     </div>

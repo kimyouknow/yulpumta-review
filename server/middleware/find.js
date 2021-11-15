@@ -1,5 +1,5 @@
-import Subject from "../models/Subject";
-import User from "../models/User";
+import Subject from '../models/Subject';
+import User from '../models/User';
 
 export const findUser = async (req, res, next) => {
   const {
@@ -9,7 +9,7 @@ export const findUser = async (req, res, next) => {
   if (user instanceof Error || !user)
     return res.json({
       success: false,
-      message: "일치하는 유저를 찾지 못했습니다.",
+      message: '일치하는 유저를 찾지 못했습니다.',
     });
   req.user = user;
   next();
@@ -24,7 +24,7 @@ export const findSubejct = async (req, res, next) => {
   if (!subject)
     return res.json({
       success: false,
-      message: "일치하는 과목을 찾지 못했습니다.",
+      message: '일치하는 과목을 찾지 못했습니다.',
     });
   req.subject = subject;
   next();
@@ -39,7 +39,7 @@ export const checkSubjectTitle = async (req, res, next) => {
   if (exists)
     return res.json({
       success: false,
-      message: "duplicate",
+      message: 'duplicate',
     });
   next();
 };

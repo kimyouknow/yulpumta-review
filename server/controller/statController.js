@@ -1,5 +1,5 @@
-import Day from "../models/Day";
-import Lapse from "../models/Lapse";
+import Day from '../models/Day';
+import Lapse from '../models/Lapse';
 
 export const getStat = async (req, res) => {
   const {
@@ -7,16 +7,16 @@ export const getStat = async (req, res) => {
     body: { year, month },
   } = req;
   const Y = String(year);
-  const M = String(month < 10 ? "0" + month : month);
+  const M = String(month < 10 ? '0' + month : month);
   const rawMonthData = await Day.find({
     user_id: user._id,
-    d_date: { $gt: Number(Y + M + "00"), $lt: Number(Y + M + "40") },
+    d_date: { $gt: Number(Y + M + '00'), $lt: Number(Y + M + '40') },
   });
   // 과목이 하나도 없으면 빈 배열 반환
   if (rawMonthData.length === 0)
     return res.json({
       success: true,
-      message: "",
+      message: '',
       dailyTotalTimes: [],
     });
   // console.log(rawMonthData);
@@ -27,7 +27,7 @@ export const getStat = async (req, res) => {
     rawMonthData.map((element) => {
       const { d_date, d_total } = element;
       // idxDate가 dailyTotalTimes의 index번호가 됨.
-      const idxDate = d_date - Number(Y + M + "00") - 1;
+      const idxDate = d_date - Number(Y + M + '00') - 1;
       dailyTotalTimes[idxDate] = dailyTotalTimes[idxDate] + d_total;
     });
   } catch (err) {
@@ -39,7 +39,7 @@ export const getStat = async (req, res) => {
   } finally {
     return res.json({
       success: true,
-      message: "",
+      message: '',
       dailyTotalTimes,
     });
   }
@@ -66,7 +66,7 @@ export const getDailyLapses = async (req, res) => {
   } finally {
     return res.json({
       success: true,
-      message: "",
+      message: '',
       dailyLapses,
     });
   }

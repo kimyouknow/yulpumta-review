@@ -1,27 +1,26 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
-import { catchError } from "_actions/global_actions";
-import { registerUser } from "_actions/user_actions";
-import RegisterPresenter from "./RegisterPresenter";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
+import { catchError } from '_actions/global_actions';
+import { registerUser } from '_actions/user_actions';
+import RegisterPresenter from './RegisterPresenter';
 
 function RegisterContainer() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [Email, setEmail] = useState("");
-  const [Name, setName] = useState("");
-  const [Password, setPassword] = useState("");
-  const [VerifyPassword, setVerifyPassword] = useState("");
-  const moveToLogin = () => history.push("/login");
+  const [Email, setEmail] = useState('');
+  const [Name, setName] = useState('');
+  const [Password, setPassword] = useState('');
+  const [VerifyPassword, setVerifyPassword] = useState('');
+  const moveToLogin = () => history.push('/login');
   const onEmailHandler = (e) => setEmail(e.currentTarget.value);
   const onNameHandler = (e) => setName(e.currentTarget.value);
   const onPasswordHandler = (e) => setPassword(e.currentTarget.value);
-  const onVerifyPasswordHandler = (e) =>
-    setVerifyPassword(e.currentTarget.value);
+  const onVerifyPasswordHandler = (e) => setVerifyPassword(e.currentTarget.value);
   const onSubmitHandler = (e) => {
     e.preventDefault();
     if (Password !== VerifyPassword) {
-      alert("비빌번호를 확인하세요");
+      alert('비빌번호를 확인하세요');
       return;
     }
     let body = {
@@ -31,7 +30,7 @@ function RegisterContainer() {
     };
     dispatch(registerUser(body)).then(({ payload: { success, message } }) => {
       if (!success) return dispatch(catchError(message));
-      history.push("/login");
+      history.push('/login');
     });
   };
   return (

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const planSchema = mongoose.Schema({
   user_id: {
@@ -8,7 +8,7 @@ const planSchema = mongoose.Schema({
   p_date: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "Day",
+    ref: 'Day',
   },
   date: {
     type: Number,
@@ -25,5 +25,5 @@ const planSchema = mongoose.Schema({
   },
 });
 
-const Plan = mongoose.model("Plan", planSchema);
+const Plan = mongoose.model('Plan', planSchema);
 export default Plan;

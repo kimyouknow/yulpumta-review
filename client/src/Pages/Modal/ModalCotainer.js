@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import ModalPresenter from "./ModalPresenter";
-import { useDispatch } from "react-redux";
-import { closeModal } from "_actions/global_actions";
+import React from 'react';
+import PropTypes from 'prop-types';
+import ModalPresenter from './ModalPresenter';
+import { useDispatch } from 'react-redux';
+import { closeModal } from '_actions/global_actions';
 
 function ModalCotainer({ children, overlayClose = true }) {
   const dispatch = useDispatch();
@@ -15,13 +15,7 @@ function ModalCotainer({ children, overlayClose = true }) {
   const handleCloseModal = () => {
     dispatch(closeModal());
   };
-  return (
-    <ModalPresenter
-      children={children}
-      onOverlayClick={onOverlayClick}
-      handleCloseModal={handleCloseModal}
-    />
-  );
+  return <ModalPresenter children={children} onOverlayClick={onOverlayClick} handleCloseModal={handleCloseModal} />;
 }
 
 ModalCotainer.propTypes = {

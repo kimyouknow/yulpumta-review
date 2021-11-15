@@ -1,8 +1,8 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import ErrModal from "Components/ModalContent/ErrModal";
-import Modal from "Pages/Modal";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import ErrModal from 'Components/ModalContent/ErrModal';
+import Modal from 'Pages/Modal';
 
 function Nav() {
   const { global } = useSelector((state) => state);
@@ -26,9 +26,7 @@ function Nav() {
           <Link to="/rank">랭킹</Link>
         </li>
       </ul>
-      {isOpen && (
-        <Modal>{errMsg ? <ErrModal msg={errMsg} /> : modalContent}</Modal>
-      )}
+      {isOpen && <Modal>{errMsg ? <ErrModal msg={errMsg} /> : modalContent}</Modal>}
     </nav>
   );
 }

@@ -1,30 +1,30 @@
 //user
-const REGISTER = "/register";
-const LOGIN = "/login";
-const LOGOUT = "/logout";
-const WITHDRAWAL = "/withdrawal";
+const REGISTER = '/register';
+const LOGIN = '/login';
+const LOGOUT = '/logout';
+const WITHDRAWAL = '/withdrawal';
 
 //middleware
-const AUTH = "/auth";
-const API = "/api";
+const AUTH = '/auth';
+const API = '/api';
 
 // subject & lapse
-const SUBJECT_GET = "/get-subject";
-const SUBJECT_ADD = "/add-subject";
-const SUBJECT_DEL = "/del-subject";
-const SUBJECT_EDIT = "/edit-subject";
-const SUBJECT_RECORD = "/record-subject";
+const SUBJECT_GET = '/get-subject';
+const SUBJECT_ADD = '/add-subject';
+const SUBJECT_DEL = '/del-subject';
+const SUBJECT_EDIT = '/edit-subject';
+const SUBJECT_RECORD = '/record-subject';
 
 // stat
-const STAT_GET = "/get-stat";
-const DAILYLAPSE_GET = "/get-dailyLapse";
+const STAT_GET = '/get-stat';
+const DAILYLAPSE_GET = '/get-dailyLapse';
 
 //planner
-const PLAN_GET = "/get-plan";
-const PLAN_ADD = "/add-plan";
-const PLAN_EDIT = "/edit-plan";
-const PLAN_DEL = "/del-plan";
-const PLAN_COM = "/com-plan";
+const PLAN_GET = '/get-plan';
+const PLAN_ADD = '/add-plan';
+const PLAN_EDIT = '/edit-plan';
+const PLAN_DEL = '/del-plan';
+const PLAN_COM = '/com-plan';
 
 const routes = {
   auth: AUTH,

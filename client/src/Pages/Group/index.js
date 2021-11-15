@@ -1,2 +1,2 @@
-import GroupContainer from "./GroupContainer";
+import GroupContainer from './GroupContainer';
 export default GroupContainer;

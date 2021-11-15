@@ -1,5 +1,5 @@
-import Day from "../models/Day";
-import { setToday } from "./compareDate";
+import Day from '../models/Day';
+import { setToday } from './compareDate';
 
 const s_today = Number(setToday());
 
@@ -10,8 +10,8 @@ export const checkToday = (req, res) => {
     d_date: s_today,
   });
   if (!today) {
-    console.log("오늘날짜 없음");
+    console.log('오늘날짜 없음');
   } else {
-    console.log("오늘날짜 있음");
+    console.log('오늘날짜 있음');
   }
 };

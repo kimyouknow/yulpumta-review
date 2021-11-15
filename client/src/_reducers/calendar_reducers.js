@@ -1,10 +1,4 @@
-import {
-  GET_TOTAL_TIME,
-  PLAN_ADD,
-  PLAN_GET,
-  PLAN_SELECT_DAY,
-  STAT_SELECT_DAY,
-} from "_actions/types";
+import { GET_TOTAL_TIME, PLAN_ADD, PLAN_GET, PLAN_SELECT_DAY, STAT_SELECT_DAY } from '_actions/types';
 
 const initState = {
   dailyTotalTimes: [],

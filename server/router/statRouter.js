@@ -1,8 +1,8 @@
-import express from "express";
-import { getDailyLapses, getStat } from "../controller/statController";
-import { findUser } from "../middleware/find";
+import express from 'express';
+import { getDailyLapses, getStat } from '../controller/statController';
+import { findUser } from '../middleware/find';
 
-import routes from "../routes";
+import routes from '../routes';
 
 const statRouter = express.Router();
 

@@ -1,4 +1,4 @@
-import User from "../models/User";
+import User from '../models/User';
 export const auth = async (req, res, next) => {
   let token = req.cookies.user_auth;
   const user = await User.findByToken(token);

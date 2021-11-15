@@ -1,13 +1,7 @@
-import express from "express";
-import {
-  addPlan,
-  comPlan,
-  delPlan,
-  editPlan,
-  getPlan,
-} from "../controller/planController";
-import { findUser } from "../middleware/find";
-import routes from "../routes";
+import express from 'express';
+import { addPlan, comPlan, delPlan, editPlan, getPlan } from '../controller/planController';
+import { findUser } from '../middleware/find';
+import routes from '../routes';
 
 const planRouter = express.Router();
 

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const subjectSchema = mongoose.Schema({
   title: {
@@ -18,10 +18,10 @@ const subjectSchema = mongoose.Schema({
   dates: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Day",
+      ref: 'Day',
     },
   ],
 });
 
-const Subject = mongoose.model("Subject", subjectSchema);
+const Subject = mongoose.model('Subject', subjectSchema);
 export default Subject;

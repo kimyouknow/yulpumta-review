@@ -1,4 +1,4 @@
-import User from "../models/User";
+import User from '../models/User';
 
 export const handleAuth = (req, res) => {
   const {
@@ -19,12 +19,12 @@ export const register = async (req, res) => {
   if (exist_name)
     return res.json({
       success: false,
-      message: "이미 사용중인 이름입니다.",
+      message: '이미 사용중인 이름입니다.',
     });
   if (exist_email)
     return res.json({
       success: false,
-      message: "이미 사용중인 메일입니다.",
+      message: '이미 사용중인 메일입니다.',
     });
   const user = new User({
     name,
@@ -57,15 +57,15 @@ export const login = async (req, res) => {
     if (!isMatch)
       return res.json({
         success: false,
-        message: "비밀번호가 맞지 않습니다.",
+        message: '비밀번호가 맞지 않습니다.',
       });
     user.generateToken((err, user) => {
       if (err)
         return res.json({
           success: false,
-          message: "다시 시도해주세요.",
+          message: '다시 시도해주세요.',
         });
-      res.cookie("user_auth", user.token).json({
+      res.cookie('user_auth', user.token).json({
         success: true,
         name: user.name,
         token: user.token,
@@ -74,7 +74,7 @@ export const login = async (req, res) => {
   });
 };
 export const logout = (req, res) => {
-  User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
+  User.findOneAndUpdate({ _id: req.user._id }, { token: '' }, (err, user) => {
     if (err) return res.json({ success: false, message: err });
     return res.status(200).send({
       success: true,

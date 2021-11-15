@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { auth } from "_actions/user_actions";
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { auth } from '_actions/user_actions';
 
 export default function AuthHOC(SpecificComponent, option) {
   function AuthenticationCheck(props) {
@@ -11,11 +11,11 @@ export default function AuthHOC(SpecificComponent, option) {
         if (!isAuth) {
           // 로그인 하지 않는 상태
           if (option) {
-            props.history.push("/login");
+            props.history.push('/login');
           }
         } else {
           if (option === false) {
-            props.history.push("/");
+            props.history.push('/');
           }
         }
       });

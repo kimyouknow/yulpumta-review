@@ -1,10 +1,10 @@
-import express from "express";
-import cookieParser from "cookie-parser";
-import routes from "./routes";
-import userRouter from "./router/userRouter";
-import subjectRouter from "./router/subjectRouter";
-import statRouter from "./router/statRouter";
-import planRouter from "./router/planRouter";
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import routes from './routes';
+import userRouter from './router/userRouter';
+import subjectRouter from './router/subjectRouter';
+import statRouter from './router/statRouter';
+import planRouter from './router/planRouter';
 
 const app = express();
 

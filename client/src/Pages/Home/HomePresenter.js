@@ -1,13 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-function HomePresenter({
-  subject,
-  clickLogout,
-  handleEditSubject,
-  handleAddSubject,
-}) {
+function HomePresenter({ subject, clickLogout, handleEditSubject, handleAddSubject }) {
   const { subjects, error } = subject;
   return (
     <div>
@@ -27,7 +22,7 @@ function HomePresenter({
           ) : (
             subjects.map((subject) => (
               <li key={subject._id}>
-                <Link to={{ pathname: "/active", state: { subject } }}>
+                <Link to={{ pathname: '/active', state: { subject } }}>
                   <button>기록</button>
                 </Link>
                 <span>{subject.title}</span>

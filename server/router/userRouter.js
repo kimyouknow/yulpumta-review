@@ -1,13 +1,7 @@
-import express from "express";
-import {
-  handleAuth,
-  login,
-  logout,
-  register,
-  withdrawal,
-} from "../controller/userController";
-import { auth } from "../middleware/auth";
-import routes from "../routes";
+import express from 'express';
+import { handleAuth, login, logout, register, withdrawal } from '../controller/userController';
+import { auth } from '../middleware/auth';
+import routes from '../routes';
 
 const userRouter = express.Router();
 userRouter.get(routes.auth, auth, handleAuth);

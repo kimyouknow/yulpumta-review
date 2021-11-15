@@ -1,7 +1,7 @@
-import { setToday } from "../middleware/compareDate";
-import Day from "../models/Day";
-import Lapse from "../models/Lapse";
-import Subject from "../models/Subject";
+import { setToday } from '../middleware/compareDate';
+import Day from '../models/Day';
+import Lapse from '../models/Lapse';
+import Subject from '../models/Subject';
 // findUser 미들웨어로 token으로 로그인한 유저의 정보를 db에서 찾는 과정을 정리
 // findSubject 미들웨어로 user 내에서 요청한 과목이 있는지 체크
 // checkSubjectTitle 미들웨어로 user 내에서 과목명이 겹치는 것이 있는지 체크
@@ -21,7 +21,7 @@ export const recordActive = async (req, res) => {
       d_date: s_today,
     });
     if (!today) {
-      console.log("오늘날짜 없음");
+      console.log('오늘날짜 없음');
       const newDay = new Day({
         user_id: user._id,
         subject_id: subject._id,
@@ -46,7 +46,7 @@ export const recordActive = async (req, res) => {
       subject.dates.push(newDay);
       await subject.save();
     } else {
-      console.log("오늘날짜 있음");
+      console.log('오늘날짜 있음');
       const newLapse = new Lapse({
         user_id: user._id,
         subject_id: subject._id,
@@ -76,12 +76,12 @@ export const recordActive = async (req, res) => {
 export const getSubject = async (req, res) => {
   // findUser
   const { user } = req;
-  const data = await Subject.find({ user_id: user._id }).populate("dates");
+  const data = await Subject.find({ user_id: user._id }).populate('dates');
   // 과목이 하나도 없으면 빈 배열 반환
   if (data.length === 0)
     return res.json({
       success: true,
-      message: "",
+      message: '',
       subjects: [],
     });
   // 과목 배열을 돌면서 dates가 있으면(기록이 한 번이라도 없으면 todayTotalT = 0)
@@ -103,7 +103,7 @@ export const getSubject = async (req, res) => {
   });
   return res.json({
     success: true,
-    message: "",
+    message: '',
     subjects,
   });
 };
@@ -164,7 +164,7 @@ export const delSubject = async (req, res) => {
   if (String(user_id) !== String(user._id))
     return res.json({
       success: false,
-      message: "유저 ID가 일치하지 않습니다.",
+      message: '유저 ID가 일치하지 않습니다.',
     });
   try {
     // 1.유저의 subjects에서 해당 과목 지우기
@@ -185,7 +185,7 @@ export const delSubject = async (req, res) => {
   } finally {
     return res.json({
       success: true,
-      message: "",
+      message: '',
     });
   }
 };

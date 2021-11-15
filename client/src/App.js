@@ -1,17 +1,17 @@
-import React, { Suspense, lazy } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Auth from "_hoc/auth";
+import React, { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Auth from '_hoc/auth';
 
-import Nav from "Components/NavRouter";
+import Nav from 'Components/NavRouter';
 
-const Active = lazy(() => import("Pages/Active"));
-const Home = lazy(() => import("Pages/Home"));
-const Stat = lazy(() => import("Pages/Stat"));
-const Planner = lazy(() => import("Pages/Planner"));
-const Group = lazy(() => import("Pages/Group"));
-const Rank = lazy(() => import("Pages/Rank"));
-const Login = lazy(() => import("Pages/Login"));
-const Register = lazy(() => import("Pages/Register"));
+const Active = lazy(() => import('Pages/Active'));
+const Home = lazy(() => import('Pages/Home'));
+const Stat = lazy(() => import('Pages/Stat'));
+const Planner = lazy(() => import('Pages/Planner'));
+const Group = lazy(() => import('Pages/Group'));
+const Rank = lazy(() => import('Pages/Rank'));
+const Login = lazy(() => import('Pages/Login'));
+const Register = lazy(() => import('Pages/Register'));
 
 function App() {
   return (

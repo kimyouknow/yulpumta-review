@@ -1,4 +1,4 @@
-import { CATCH_ERR, CLOSE_MODAL, OPEN_MODAL, RESET_ERR } from "./types";
+import { CATCH_ERR, CLOSE_MODAL, OPEN_MODAL, RESET_ERR } from './types';
 
 export const openModal = (content) => {
   return {

@@ -1,10 +1,10 @@
-import InnerMenuWrapper from "Components/InnerMenus/InnerMenuWrapper";
-import StatInnerMenu from "Components/InnerMenus/StatInnerMenu";
-import React from "react";
-import styled from "styled-components";
-import PropTypes from "prop-types";
-import { weeks } from "global/global_variables";
-import { extractTargetDate } from "global/extractDate";
+import InnerMenuWrapper from 'Components/InnerMenus/InnerMenuWrapper';
+import StatInnerMenu from 'Components/InnerMenus/StatInnerMenu';
+import React from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { weeks } from 'global/global_variables';
+import { extractTargetDate } from 'global/extractDate';
 
 const WContainer = styled.div`
   display: grid;
@@ -39,12 +39,7 @@ const DContent = styled.div`
   width: 100%;
   position: relative;
   border: none;
-  background-color: ${(props) =>
-    props.isCur < 0
-      ? "grey"
-      : props.isCur < 10
-      ? "white"
-      : "rgba(238, 90, 36, 0.3)"};
+  background-color: ${(props) => (props.isCur < 0 ? 'grey' : props.isCur < 10 ? 'white' : 'rgba(238, 90, 36, 0.3)')};
   :nth-child(7n + 1) {
     color: #d13e3e;
   }
@@ -76,23 +71,14 @@ function StatPresenter({ calendar, calendarData, selectingDay }) {
             <DContent
               key={date.date}
               onClick={(e) => selectingDay(date.date)}
-              isCur={
-                !date.isCur
-                  ? -1
-                  : dailyTotalTimes.length > 0
-                  ? extractTargetDate(dailyTotalTimes, date.date)
-                  : 0
-              }
+              isCur={!date.isCur ? -1 : dailyTotalTimes.length > 0 ? extractTargetDate(dailyTotalTimes, date.date) : 0}
             >
               {date.date.getDate()}
             </DContent>
           ))}
       </DContainer>
       <InnerMenuWrapper>
-        <StatInnerMenu
-          dailyTotalTimes={dailyTotalTimes}
-          dailyLapses={dailyLapses}
-        />
+        <StatInnerMenu dailyTotalTimes={dailyTotalTimes} dailyLapses={dailyLapses} />
       </InnerMenuWrapper>
     </>
   );

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const daySchema = mongoose.Schema({
   user_id: {
@@ -8,7 +8,7 @@ const daySchema = mongoose.Schema({
   subject_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "Subject",
+    ref: 'Subject',
   },
   d_date: {
     type: Number,
@@ -20,16 +20,16 @@ const daySchema = mongoose.Schema({
   lapses: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Lapse",
+      ref: 'Lapse',
     },
   ],
   Plans: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Plan",
+      ref: 'Plan',
     },
   ],
 });
 
-const Day = mongoose.model("Day", daySchema);
+const Day = mongoose.model('Day', daySchema);
 export default Day;
