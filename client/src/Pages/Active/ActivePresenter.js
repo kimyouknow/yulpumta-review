@@ -8,7 +8,7 @@ function ActivePresenter({ global, stopHandler, handleModal, subject }) {
   const { title, todayTotalT } = subject;
   return (
     <div>
-      <CounterWrapper global={global} totalTime={todayTotalT}>
+      <CounterWrapper totalTime={todayTotalT}>
         <div>{title}</div>
       </CounterWrapper>
       <button onClick={stopHandler}>중지</button>

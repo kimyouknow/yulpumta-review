@@ -11,7 +11,7 @@ import routes from "../routes";
 
 const subjectRouter = express.Router();
 
-subjectRouter.post(routes.record, findUser, findSubejct, recordActive);
+subjectRouter.post(routes.recordSubject, findUser, findSubejct, recordActive);
 subjectRouter.post(routes.getSubject, findUser, getSubject);
 subjectRouter.post(routes.addSubject, findUser, checkSubjectTitle, addSubject);
 subjectRouter.post(routes.delSubject, findUser, findSubejct, delSubject);

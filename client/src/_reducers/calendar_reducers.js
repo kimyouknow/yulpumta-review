@@ -1,5 +1,7 @@
 import {
   GET_TOTAL_TIME,
+  PLAN_ADD,
+  PLAN_GET,
   PLAN_SELECT_DAY,
   STAT_SELECT_DAY,
 } from "_actions/types";
@@ -21,6 +23,10 @@ const calendarReducer = (state = initState, action) => {
     case PLAN_SELECT_DAY:
       const { Y: pY, M: pM, D: pD } = action.payload;
       return { ...state, planSelectedDate: new Date(pY, pM, pD) };
+    case PLAN_GET:
+      return state;
+    case PLAN_ADD:
+      return state;
     default:
       return state;
   }

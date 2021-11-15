@@ -23,10 +23,10 @@ const daySchema = mongoose.Schema({
       ref: "Lapse",
     },
   ],
-  Schedules: [
+  Plans: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Schedule",
+      ref: "Plan",
     },
   ],
 });

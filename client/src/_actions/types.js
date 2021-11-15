@@ -18,6 +18,7 @@ export const STAT_SELECT_DAY = "statSelectDay";
 
 //Calendar - planner
 export const PLAN_SELECT_DAY = "plannerSelectDay";
+export const PLAN_GET = "getPlan";
 export const PLAN_ADD = "addPlan";
 export const PLAN_EDIT = "editPlan";
 export const PLAN_CHECK = "checkPlan";

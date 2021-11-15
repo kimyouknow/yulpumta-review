@@ -15,14 +15,14 @@ function useCounter() {
     clearInterval(intervalRef.current);
     intervalRef.current = null;
   }, []);
-  const reset = useCallback(() => {
-    setCount(0);
-  }, []);
-  return { count, start, stop, reset };
+  // const reset = useCallback(() => {
+  //   setCount(0);
+  // }, []);
+  return { count, start, stop };
 }
 
-function CounterWrapper({ global, totalTime, children }) {
-  const { count, start, stop, reset } = useCounter();
+function CounterWrapper({ totalTime, children }) {
+  const { count, start, stop } = useCounter();
   useEffect(() => {
     start();
     return () => stop();
@@ -35,20 +35,7 @@ function CounterWrapper({ global, totalTime, children }) {
   );
 }
 CounterWrapper.propTypes = {
-  global: PropTypes.shape({
-    isOpen: PropTypes.bool,
-    errMsg: PropTypes.string,
-  }),
   children: PropTypes.element.isRequired,
 };
 
 export default CounterWrapper;
-// const [count, setCount] = useState(0);
-// const intervalRef = useRef();
-// useEffect(() => {
-//   const id = setInterval(() => {
-//     setCount(count + 1);
-//   }, 1000);
-//   intervalRef.current = id;
-//   return () => clearInterval(intervalRef.current);
-// });

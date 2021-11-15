@@ -9,15 +9,22 @@ const AUTH = "/auth";
 const API = "/api";
 
 // subject & lapse
-const GET_SUBJECT = "/get-subject";
-const ADD_SUBJECT = "/add-subject";
-const DEL_SUBJECT = "/del-subject";
-const EDIT_SUBJECT = "/edit-subject";
-const RECORD = "/record-subject";
+const SUBJECT_GET = "/get-subject";
+const SUBJECT_ADD = "/add-subject";
+const SUBJECT_DEL = "/del-subject";
+const SUBJECT_EDIT = "/edit-subject";
+const SUBJECT_RECORD = "/record-subject";
 
 // stat
-const GET_STAT = "/get-stat";
-const GET_DAILY_LAPSE = "/get-dailyLapse";
+const STAT_GET = "/get-stat";
+const DAILYLAPSE_GET = "/get-dailyLapse";
+
+//planner
+const PLAN_GET = "/get-plan";
+const PLAN_ADD = "/add-plan";
+const PLAN_EDIT = "/edit-plan";
+const PLAN_DEL = "/del-plan";
+const PLAN_COM = "/com-plan";
 
 const routes = {
   auth: AUTH,
@@ -26,12 +33,17 @@ const routes = {
   login: LOGIN,
   logout: LOGOUT,
   withdrawal: WITHDRAWAL,
-  record: RECORD,
-  getSubject: GET_SUBJECT,
-  addSubject: ADD_SUBJECT,
-  delSubject: DEL_SUBJECT,
-  editSubject: EDIT_SUBJECT,
-  getStat: GET_STAT,
-  getDailyLapse: GET_DAILY_LAPSE,
+  getSubject: SUBJECT_GET,
+  addSubject: SUBJECT_ADD,
+  delSubject: SUBJECT_DEL,
+  editSubject: SUBJECT_EDIT,
+  recordSubject: SUBJECT_RECORD,
+  getStat: STAT_GET,
+  getDailyLapse: DAILYLAPSE_GET,
+  getPlan: PLAN_GET,
+  addPlan: PLAN_ADD,
+  editPlan: PLAN_EDIT,
+  delPlan: PLAN_DEL,
+  comPlan: PLAN_COM,
 };
 export default routes;

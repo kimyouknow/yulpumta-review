@@ -1,8 +1,8 @@
 import AddPlanModal from "Components/ModalContent/AddPlanModal";
 import { extractDate } from "global/extractDate";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { planSelectDay } from "_actions/calendar_actions";
+import { getPlans, planSelectDay } from "_actions/calendar_actions";
 import { openModal } from "_actions/global_actions";
 import useRenderCalendar from "_hooks/useRenderCalendar";
 import PlannerPresenter from "./PlannerPresenter";
@@ -11,9 +11,9 @@ function PlannerContainer() {
   const { dates, year, month, setToday, prevMonth, nextMonth } =
     useRenderCalendar();
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state);
   const calendar = useSelector((state) => state.calendar);
   const { planSelectedDate } = calendar;
-  console.log(planSelectedDate);
   const handleAddSubject = useCallback(() => {
     dispatch(openModal(<AddPlanModal targetDate={planSelectedDate} />));
   }, [planSelectedDate]);
@@ -25,6 +25,20 @@ function PlannerContainer() {
       D,
     };
     dispatch(planSelectDay(body));
+  }, []);
+  const initGetPlans = () => {
+    console.log("init get plans");
+    const { Y, M, D } = extractDate(planSelectedDate);
+    const body = {
+      token: user.token,
+      Y,
+      M,
+      D,
+    };
+    dispatch(getPlans(body));
+  };
+  useEffect(() => {
+    initGetPlans();
   }, []);
   return (
     <PlannerPresenter

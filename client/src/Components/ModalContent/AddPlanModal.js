@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "_actions/global_actions";
-import { extractDate } from "global/extractDate";
+import { addPlan } from "_actions/calendar_actions";
 
 function AddPlanModal({ targetDate }) {
   const dispatch = useDispatch();
@@ -15,18 +15,21 @@ function AddPlanModal({ targetDate }) {
     D: targetDate.getDate(),
   });
   const { Y, M, D } = date;
-  const handleSubmit = useCallback(async (e) => {
-    e.preventDefault();
-    const body = {
-      token: user.token,
-      title,
-      desc,
-      date,
-    };
-    console.log(body);
-    
-    dispatch(closeModal());
-  }, []);
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      const body = {
+        token: user.token,
+        title,
+        desc,
+        date,
+      };
+      console.log(body);
+      dispatch(addPlan(body));
+      dispatch(closeModal());
+    },
+    [user, title, desc, date, dispatch]
+  );
   const onChangeTitle = useCallback((e) => setTitle(e.target.value), []);
   const onChangeDesc = useCallback((e) => setDesc(e.target.value), []);
   const onChangeDate = useCallback((e) => {
