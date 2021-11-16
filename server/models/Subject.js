@@ -6,7 +6,6 @@ const subjectSchema = mongoose.Schema({
     required: true,
     maxLength: 20,
     trim: true,
-    unique: true,
   },
   user_id: {
     type: String,
@@ -18,7 +17,7 @@ const subjectSchema = mongoose.Schema({
   dates: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Day',
+      ref: 'SubjectDate',
     },
   ],
 });

@@ -1,5 +1,5 @@
 import { setToday } from '../middleware/compareDate';
-import Day from '../models/Day';
+import CalendarDate from '../models/CalendarDate';
 import Plan from '../models/Plan';
 const s_today = Number(setToday());
 

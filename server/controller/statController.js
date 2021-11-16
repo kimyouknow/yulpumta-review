@@ -1,4 +1,4 @@
-import Day from '../models/Day';
+import CalendarDate from '../models/CalendarDate';
 import Lapse from '../models/Lapse';
 
 export const getStat = async (req, res) => {
@@ -8,7 +8,7 @@ export const getStat = async (req, res) => {
   } = req;
   const Y = String(year);
   const M = String(month < 10 ? '0' + month : month);
-  const rawMonthData = await Day.find({
+  const rawMonthData = await CalendarDate.find({
     user_id: user._id,
     d_date: { $gt: Number(Y + M + '00'), $lt: Number(Y + M + '40') },
   });

@@ -16,7 +16,7 @@ const lapseSchema = mongoose.Schema({
   l_date: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'Day',
+    ref: 'CalendarDate',
   },
   date: {
     type: Number,

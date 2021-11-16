@@ -1,5 +1,6 @@
 import { setToday } from '../middleware/compareDate';
-import Day from '../models/Day';
+import CalendarDate from '../models/CalendarDate';
+import SubjectDate from '../models/SubjectDate';
 import Lapse from '../models/Lapse';
 import Subject from '../models/Subject';
 // findUser 미들웨어로 token으로 로그인한 유저의 정보를 db에서 찾는 과정을 정리
@@ -7,61 +8,58 @@ import Subject from '../models/Subject';
 // checkSubjectTitle 미들웨어로 user 내에서 과목명이 겹치는 것이 있는지 체크
 const s_today = Number(setToday());
 
+const createNewLapse = async (user, subject, body, dateInfo) => {
+  const { startTime, endTime, lapse } = body;
+  const newLapse = new Lapse({
+    user_id: user._id,
+    subject_id: subject._id,
+    subject_title: subject.title,
+    l_date: dateInfo._id,
+    date: s_today,
+    l_start_time: startTime,
+    l_end_time: endTime,
+    l_lapse: lapse,
+  });
+  await newLapse.save();
+  return newLapse;
+};
+
 export const recordActive = async (req, res) => {
   // console.log(s_today);
-  const {
-    user,
-    subject,
-    body: { startTime, endTime, lapse },
-  } = req;
+  const { user, subject, body } = req;
+  const { lapse } = body;
   try {
-    const today = await Day.findOne({
-      subject_id: String(subject._id),
+    // CalendarDate에 새로운 lapse추가
+    const today_calendar = await CalendarDate.findOne({
       user_id: String(user._id),
       d_date: s_today,
     });
-    if (!today) {
-      console.log('오늘날짜 없음');
-      const newDay = new Day({
+    if (!today_calendar) {
+      console.log('오늘 날짜 없음');
+      const newDay = new CalendarDate({
         user_id: user._id,
-        subject_id: subject._id,
         d_date: s_today,
         d_total: lapse,
       });
-      await newDay.save();
-      const newLapse = new Lapse({
-        user_id: user._id,
-        subject_id: subject._id,
-        subject_title: subject.title,
-        l_date: newDay._id,
-        date: s_today,
-        l_start_time: startTime,
-        l_end_time: endTime,
-        l_lapse: lapse,
-      });
-      await newLapse.save();
+      const newLapse = await createNewLapse(user, subject, body, newDay);
       newDay.lapses.push(newLapse);
       await newDay.save();
-      // subject의 dates에도 오늘날짜 추가
-      subject.dates.push(newDay);
-      await subject.save();
     } else {
-      console.log('오늘날짜 있음');
-      const newLapse = new Lapse({
-        user_id: user._id,
-        subject_id: subject._id,
-        subject_title: subject.title,
-        l_date: today._id,
-        date: s_today,
-        l_start_time: startTime,
-        l_end_time: endTime,
-        l_lapse: lapse,
-      });
-      today.d_total = today.d_total + lapse;
-      today.lapses.push(newLapse);
-      await today.save();
-      await newLapse.save();
+      console.log('오늘 날짜 있음');
+      const newLapse = await createNewLapse(user, subject, body, today_calendar);
+      today_calendar.d_total = today_calendar.d_total + lapse;
+      today_calendar.lapses.push(newLapse);
+      await today_calendar.save();
     }
+    // SubjectDate 새로운 lapse추가
+    const today_subject = await SubjectDate.findOne({
+      user_id: String(user._id),
+      subject_id: String(subject._id),
+      d_date: s_today,
+    });
+    today_subject.s_total = today_subject.s_total + lapse;
+    await today_subject.save();
+    console.log(lapse, today_subject);
   } catch (err) {
     return res.json({
       success: false,
@@ -89,17 +87,8 @@ export const getSubject = async (req, res) => {
   // 오늘날짜가 있으면 해당 날짜의 d_total 반환
   const subjects = data.map((subject) => {
     const { _id, title, user_id, color, dates } = subject;
-    if (subject.dates.length === 0) {
-      return { _id, title, user_id, color, todayTotalT: 0 };
-    } else {
-      const last = dates[dates.length - 1];
-      const latestDay = last.d_date;
-      let todayTotalT = 0;
-      if (latestDay === s_today) {
-        todayTotalT = last.d_total;
-      }
-      return { _id, title, user_id, color, todayTotalT };
-    }
+    const today = dates.find((date) => date.s_date === s_today);
+    return { _id, title, user_id, color, todayTotalT: today.s_total };
   });
   return res.json({
     success: true,
@@ -115,14 +104,31 @@ export const addSubject = async (req, res) => {
     body: { title, color },
     user,
   } = req;
-  const newSubject = new Subject({
-    user_id: user._id,
-    color,
-    title,
-  });
-  await newSubject.save();
-  user.subjects.push(newSubject);
-  await user.save();
+  let newSubject;
+  try {
+    newSubject = new Subject({
+      user_id: user._id,
+      color,
+      title,
+    });
+    const newSubjectDate = new SubjectDate({
+      user_id: user._id,
+      subject_id: newSubject._id,
+      subject_title: title,
+      s_date: s_today,
+      s_total: 0,
+    });
+    await newSubjectDate.save();
+    newSubject.dates.push(newSubjectDate);
+    await newSubject.save();
+    user.subjects.push(newSubject);
+    await user.save();
+  } catch (err) {
+    return res.json({
+      success: false,
+      message: err.message,
+    });
+  }
   return res.json({
     success: true,
     newSubject,

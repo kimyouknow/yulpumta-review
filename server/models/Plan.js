@@ -8,7 +8,7 @@ const planSchema = mongoose.Schema({
   p_date: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'Day',
+    ref: 'CalendarDate',
   },
   date: {
     type: Number,
