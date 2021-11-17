@@ -173,15 +173,10 @@ export const delSubject = async (req, res) => {
       message: '유저 ID가 일치하지 않습니다.',
     });
   try {
-    // 1.유저의 subjects에서 해당 과목 지우기
-    // 2.subject 지우기
-    // 3. day에서 subject의 _id인거 지우기
-    // 4. lapse에서 subject의 _id인거 지우기
     await Subject.findByIdAndDelete(_id);
     await user.subjects.splice(user.subjects.indexOf(_id), 1);
     user.save();
-    await Day.deleteMany({ subject_id: _id });
-    await Lapse.deleteMany({ subject_id: _id });
+    // 과목은 지우지만 기록은 남겨야 하니까 lapse랑 calendarDate는 유지
   } catch (err) {
     console.log(err);
     return res.json({

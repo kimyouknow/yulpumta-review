@@ -1,4 +1,4 @@
-import CalendarDate from '../models/CalendarDate';
+import { getMonthData } from '../middleware/getMonthData';
 import Lapse from '../models/Lapse';
 
 export const getStat = async (req, res) => {
@@ -6,13 +6,7 @@ export const getStat = async (req, res) => {
     user,
     body: { year, month },
   } = req;
-  const Y = String(year);
-  const M = String(month < 10 ? '0' + month : month);
-  const rawMonthData = await CalendarDate.find({
-    user_id: user._id,
-    d_date: { $gt: Number(Y + M + '00'), $lt: Number(Y + M + '40') },
-  });
-  // 과목이 하나도 없으면 빈 배열 반환
+  const { rawMonthData, Y, M } = await getMonthData(user, year, month, false);
   if (rawMonthData.length === 0)
     return res.json({
       success: true,
