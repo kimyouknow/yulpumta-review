@@ -1,26 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { weeks } from 'global/global_variables';
-
-const WContainer = styled.div`
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(7, 1fr);
-`;
-const WContent = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 70px;
-  width: 100%;
-  :nth-child(7n + 1) {
-    color: #d13e3e;
-  }
-  :nth-child(7n) {
-    color: #396ee2;
-  }
-`;
+import ToDos from 'Components/PlanComponents/ToDos';
+import WeekContainer from 'Components/CalendarComponents/WeekContainer';
+import CalendarHeader from 'Components/CalendarComponents/CalendarHeader';
 
 const DContainer = styled.div`
   display: grid;
@@ -45,27 +28,45 @@ const DContent = styled.div`
   }
 `;
 
-function PlannerPresenter({ calendarData, handleAddSubject, selectingDay }) {
+function PlannerPresenter({
+  calendarData,
+  handleAddSubject,
+  handleEditSubject,
+  selectingDay,
+  monthPlans,
+  stopPropagation,
+}) {
   const { dates, year, month, setToday, prevMonth, nextMonth } = calendarData;
+  const getDailyPlans = (date) => {
+    if (monthPlans.length === 0) return [];
+    return monthPlans[Number(date.toDateString().substring(8, 10)) - 1];
+  };
   return (
     <>
-      <div>
-        <span>{year}년 </span>
-        <span> {month + 1}월</span>
-        <button onClick={prevMonth}>이전</button>
-        <button onClick={setToday}>오늘</button>
-        <button onClick={nextMonth}>이후</button>
-      </div>
-      <WContainer>
-        {weeks.map((week) => (
-          <WContent key={week}>{week}</WContent>
-        ))}
-      </WContainer>
+      <CalendarHeader
+        year={year}
+        month={month}
+        prevMonth={prevMonth}
+        setToday={setToday}
+        nextMonth={nextMonth}
+      />
+      <WeekContainer />
       <DContainer>
         {dates &&
           dates.map((date) => (
-            <DContent key={date.date} isCur={date.isCur} onClick={(e) => selectingDay(date.date)}>
+            <DContent
+              key={date.date}
+              isCur={date.isCur}
+              onClick={(e) => selectingDay(e, date.date)}
+            >
               {date.date.getDate()}
+              {date.isCur && getDailyPlans(date.date).length !== 0 && (
+                <ToDos
+                  plans={getDailyPlans(date.date)}
+                  onClick={stopPropagation}
+                  handleEditSubject={handleEditSubject}
+                />
+              )}
             </DContent>
           ))}
       </DContainer>
@@ -86,7 +87,10 @@ PlannerPresenter.propTypes = {
     nextMonth: PropTypes.func,
   }),
   handleAddSubject: PropTypes.func,
+  handleEditSubject: PropTypes.func,
   selectingDay: PropTypes.func,
+  monthPlans: PropTypes.arrayOf(PropTypes.array),
+  stopPropagation: PropTypes.func,
 };
 
 export default PlannerPresenter;

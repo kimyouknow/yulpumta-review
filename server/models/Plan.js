@@ -13,15 +13,19 @@ const planSchema = mongoose.Schema({
   date: {
     type: Number,
     required: true,
+    required: true,
   },
   p_isDone: {
     type: Boolean,
+    required: true,
   },
   p_title: {
     type: String,
+    required: true,
   },
   p_desc: {
     type: String,
+    required: true,
   },
 });
 

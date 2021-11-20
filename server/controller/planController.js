@@ -7,7 +7,7 @@ export const getPlan = async (req, res) => {
   console.log('getPlan');
   const {
     user,
-    body: { year, month },
+    body: { Y: year, M: month },
   } = req;
   const { rawMonthData, Y, M } = await getMonthData(user, year, month, true);
   if (rawMonthData.length === 0)
@@ -106,10 +106,11 @@ export const editPlan = async (req, res) => {
       success: false,
       message: err.message,
     });
+  } finally {
+    return res.json({
+      success: true,
+    });
   }
-  return res.json({
-    success: true,
-  });
 };
 
 export const delPlan = async (req, res) => {

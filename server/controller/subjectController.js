@@ -28,6 +28,7 @@ export const recordActive = async (req, res) => {
   // console.log(s_today);
   const { user, subject, body } = req;
   const { lapse } = body;
+  console.log(s_today);
   try {
     // CalendarDate에 새로운 lapse추가
     const today_calendar = await CalendarDate.findOne({
@@ -35,7 +36,7 @@ export const recordActive = async (req, res) => {
       d_date: s_today,
     });
     if (!today_calendar) {
-      console.log('오늘 날짜 없음');
+      console.log('오늘 calendar date 날짜 없음');
       const newDay = new CalendarDate({
         user_id: user._id,
         d_date: s_today,
@@ -45,7 +46,7 @@ export const recordActive = async (req, res) => {
       newDay.lapses.push(newLapse);
       await newDay.save();
     } else {
-      console.log('오늘 날짜 있음');
+      console.log('오늘 calendar date 날짜 있음');
       const newLapse = await createNewLapse(user, subject, body, today_calendar);
       today_calendar.d_total = today_calendar.d_total + lapse;
       today_calendar.lapses.push(newLapse);
@@ -57,9 +58,22 @@ export const recordActive = async (req, res) => {
       subject_id: String(subject._id),
       d_date: s_today,
     });
-    today_subject.s_total = today_subject.s_total + lapse;
-    await today_subject.save();
-    console.log(lapse, today_subject);
+    if (!today_subject) {
+      console.log('오늘 subject date 날짜 없음');
+      const newSubjectDate = new SubjectDate({
+        user_id: String(user._id),
+        subject_id: String(subject._id),
+        d_date: s_today,
+        subject_title: subject.title,
+        s_total: lapse,
+      });
+      console.log(newSubjectDate);
+      await newSubjectDate.save();
+    } else {
+      console.log('오늘 subject date 날짜 있음');
+      today_subject.s_total = today_subject.s_total + lapse;
+      await today_subject.save();
+    }
   } catch (err) {
     return res.json({
       success: false,
@@ -88,6 +102,7 @@ export const getSubject = async (req, res) => {
   const subjects = data.map((subject) => {
     const { _id, title, user_id, color, dates } = subject;
     const today = dates.find((date) => date.s_date === s_today);
+    if (!today) return { _id, title, user_id, color, todayTotalT: 0 };
     return { _id, title, user_id, color, todayTotalT: today.s_total };
   });
   return res.json({
